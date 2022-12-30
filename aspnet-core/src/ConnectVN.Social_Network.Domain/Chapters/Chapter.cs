@@ -1,0 +1,46 @@
+﻿using ConnectVN.Social_Network.Storys;
+using System;
+using System.ComponentModel.DataAnnotations;
+using Volo.Abp.Domain.Entities.Auditing;
+
+namespace ConnectVN.Social_Network.Chapters
+{
+    /// <summary>
+    /// Table Chapter
+    /// </summary>
+    public class Chapter : CreationAuditedAggregateRoot<int>
+    {
+        /// <summary>
+        /// Title
+        /// </summary>
+        [Required(ErrorMessage = nameof(EnumChapterErrorCode.CT00))]
+        [MaxLength(255, ErrorMessage = nameof(EnumChapterErrorCode.CT01))]
+        [MinLength(3, ErrorMessage = nameof(EnumChapterErrorCode.CT02))]
+        public string ChapterTitle { get; set; }
+        /// <summary>
+        /// Content of story
+        /// </summary>
+        [Required(ErrorMessage = nameof(EnumChapterErrorCode.CT04))]
+        [MaxLength(100000, ErrorMessage = nameof(EnumChapterErrorCode.CT05))]
+        [MinLength(750, ErrorMessage = nameof(EnumChapterErrorCode.CT06))]
+        public string Body { get; set; }
+
+        /// <summary>
+        /// Number of each the chapter
+        /// </summary>
+        [Required(ErrorMessage = nameof(EnumChapterErrorCode.CT07))]
+        [MaxLength(200, ErrorMessage = nameof(EnumChapterErrorCode.CT08))]
+
+        public string NumberOfChapter { get; set; }
+        /// <summary>
+        /// Sum character in chapter
+        /// </summary>
+
+        [Required(ErrorMessage = nameof(EnumChapterErrorCode.CT09))]
+        public int NumberCharacter { get; set; }
+
+        [Required(ErrorMessage = nameof(EnumChapterErrorCode.CT09))]
+        public Guid StoryGuid { get; set; }
+        public Story Story { get; set; }
+    }
+}

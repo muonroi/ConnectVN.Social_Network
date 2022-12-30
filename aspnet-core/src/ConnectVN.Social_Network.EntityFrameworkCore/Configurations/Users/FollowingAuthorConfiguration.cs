@@ -1,0 +1,20 @@
+﻿using ConnectVN.Social_Network.Common.Domain;
+using ConnectVN.Social_Network.Users;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
+
+namespace ConnectVN.Social_Network.Configurations.Users
+{
+    public class FollowingAuthorConfiguration : IEntityTypeConfiguration<FollowingAuthor>
+    {
+        public void Configure(EntityTypeBuilder<FollowingAuthor> builder)
+        {
+            builder.ToTable(Social_NetworkConsts.DbTablePrefix + nameof(FollowingAuthor));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).UseIdentityColumn();
+            builder.HasOne(x => x.UserMember)
+              .WithMany(x => x.FollowingAuthor)
+              .HasForeignKey(x => x.UserGuid);
+        }
+    }
+}
