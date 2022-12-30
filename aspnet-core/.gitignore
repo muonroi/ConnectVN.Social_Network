@@ -251,15 +251,15 @@ paket-files/
 .idea/
 *.sln.iml
 
-# Socical_Network
-src/ConnectVN.Socical_Network.Web/Logs/*
-src/ConnectVN.Socical_Network.Web.Host/Logs/*
-src/ConnectVN.Socical_Network.AuthServer/Logs/*
-src/ConnectVN.Socical_Network.HttpApi.Host/Logs/*
-src/ConnectVN.Socical_Network.HttpApi.HostWithIds/Logs/*
-src/ConnectVN.Socical_Network.DbMigrator/Logs/*
-src/ConnectVN.Socical_Network.Blazor.Server/Logs/*
-src/ConnectVN.Socical_Network.Blazor.Server.Tiered/Logs/*
+# Social_Network
+src/ConnectVN.Social_Network.Web/Logs/*
+src/ConnectVN.Social_Network.Web.Host/Logs/*
+src/ConnectVN.Social_Network.AuthServer/Logs/*
+src/ConnectVN.Social_Network.HttpApi.Host/Logs/*
+src/ConnectVN.Social_Network.HttpApi.HostWithIds/Logs/*
+src/ConnectVN.Social_Network.DbMigrator/Logs/*
+src/ConnectVN.Social_Network.Blazor.Server/Logs/*
+src/ConnectVN.Social_Network.Blazor.Server.Tiered/Logs/*
 
 # Use abp install-libs to restore.
 **/wwwroot/libs/*

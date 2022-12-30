@@ -6,21 +6,21 @@ export const environment = {
   production: true,
   application: {
     baseUrl,
-    name: 'Socical_Network',
+    name: 'Social_Network',
     logoUrl: '',
   },
   oAuthConfig: {
     issuer: 'https://localhost:44398/',
     redirectUri: baseUrl,
-    clientId: 'Socical_Network_App',
+    clientId: 'Social_Network_App',
     responseType: 'code',
-    scope: 'offline_access Socical_Network',
+    scope: 'offline_access Social_Network',
     requireHttps: true
   },
   apis: {
     default: {
       url: 'https://localhost:44332',
-      rootNamespace: 'ConnectVN.Socical_Network',
+      rootNamespace: 'ConnectVN.Social_Network',
     },
   },
 } as Environment;
