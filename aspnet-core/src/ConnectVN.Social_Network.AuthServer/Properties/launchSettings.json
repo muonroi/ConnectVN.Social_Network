@@ -1,0 +1,20 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "https://localhost:44398",
+      "sslPort": 44398
+    }
+  },
+  "profiles": {
+    "ConnectVN.Social_Network.AuthServer": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
