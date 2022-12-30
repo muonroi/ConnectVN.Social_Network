@@ -42,8 +42,5 @@ namespace ConnectVN.Social_Network.Storys
         public List<CategoryInStory> CategoryInStory { get; set; }
         public List<StoryNotifications> StoryNotifications { get; set; }
         public List<TagInStory> TagInStory { get; set; }
-
-
-
     }
 }
