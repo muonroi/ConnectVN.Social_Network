@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ConnectVN.Social_Network.Admin.Application.Contracts\ConnectVN.Social_Network.Admin.Application.Contracts.csproj" />
     <ProjectReference Include="..\ConnectVN.Social_Network.Domain.Shared\ConnectVN.Social_Network.Domain.Shared.csproj" />
   </ItemGroup>
 

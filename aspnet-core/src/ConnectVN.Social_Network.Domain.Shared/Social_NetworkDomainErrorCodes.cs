@@ -2,5 +2,8 @@
 
 public static class Social_NetworkDomainErrorCodes
 {
-    /* You can add your business exception error codes here, as constants */
+    public const string ExistsStoryTitle = "ConnectVn.ExistsStoryTitle";
+    public const string NotExistsStory = "ConnectVn.NotExistsStory";
+    public const string NoExistsTag = "ConnectVn.NoExistsTag";
+    public const string NotExistsCategory = "ConnectVn.NotExistsCategory";
 }

@@ -11,7 +11,7 @@ namespace ConnectVN.Social_Network.Admin.StoryContract
         StoryDTO,
         Guid,
         PagedResultRequestDto,
-        CreateUpdateStory>
+        StoryDTO>
     {
         /// <summary>
         /// Get list story and paging it by keyword 
@@ -30,5 +30,7 @@ namespace ConnectVN.Social_Network.Admin.StoryContract
         /// <param name="guidId">list guidId story</param>
         /// <returns>number story deleted</returns>
         Task DeleteMultipleStoryAsync(IEnumerable<Guid> guidId);
+
+
     }
 }

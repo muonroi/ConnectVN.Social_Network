@@ -4,6 +4,7 @@ using ConnectVN.Social_Network.Common.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace ConnectVN.Social_Network.Migrations
 {
     [DbContext(typeof(Social_NetworkDbContext))]
-    partial class Social_NetworkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221231160940_FinnalStoryTable")]
+    partial class FinnalStoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,6 +297,9 @@ namespace ConnectVN.Social_Network.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
                     b.Property<string>("Story_Synopsis")
                         .IsRequired()
                         .HasMaxLength(5000)
@@ -304,6 +309,12 @@ namespace ConnectVN.Social_Network.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("TotalFavorite")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalView")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

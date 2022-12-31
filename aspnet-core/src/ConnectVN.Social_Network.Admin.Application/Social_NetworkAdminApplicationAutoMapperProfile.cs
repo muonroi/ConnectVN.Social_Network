@@ -10,7 +10,12 @@ public class Social_NetworkAdminApplicationAutoMapperProfile : Profile
     //Đăng kí map
     public Social_NetworkAdminApplicationAutoMapperProfile()
     {
-        //Story
+        //Story 
+        CreateMap<Story, CreateUpdateStoryDTO>();
+        CreateMap<CreateUpdateStoryDTO, Story>();
+        CreateMap<CreateUpdateStory, Story>();
+
+        //Story detail
         CreateMap<Story, StoryDTO>();
         CreateMap<StoryDTO, Story>();
         CreateMap<CreateUpdateStory, Story>();
