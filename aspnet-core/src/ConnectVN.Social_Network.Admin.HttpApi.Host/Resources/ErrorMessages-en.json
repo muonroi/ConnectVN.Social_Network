@@ -62,6 +62,11 @@
   "USR26C": "Mật khẩu tối thiếu 8 kí tự",
   "USR27C": "Pagezie không quá 100 dòng",
   "USR28C": "Tài khoản bị khóa",
+  "USR29C": "Có lỗi xảy ra vui lòng thử lại",
+  "USR30C": "Tối thiểu 3 kí tự",
+  "USR31C": "Email bắt buộc phải nhập",
+  "USR32C": "Địa chỉ không được trống",
+  "USRC33C": "Địa chỉ tối thiểu 10 kí tự",
   //--------------------\
 
   //Role

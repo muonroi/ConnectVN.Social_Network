@@ -14,6 +14,24 @@ namespace ConnectVN.Social_Network.Users
     /// </summary>
     public class UserMember : FullAuditedAggregateRoot<Guid>
     {
+        public UserMember()
+        {
+
+        }
+        public UserMember(Guid guidId, string firstName, string lastName, string userName, string password, string email, string phoneNumber, string address, DateTime birthDate, EnumGender gender, string avatarLink)
+        {
+            Id = guidId;
+            FirstName = firstName;
+            LastName = lastName;
+            UserName = userName;
+            Password = password;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            Address = address;
+            BirthDate = birthDate;
+            Gender = gender;
+            Avatar = avatarLink;
+        }
         /// <summary>
         /// FirstName''s User
         /// </summary>

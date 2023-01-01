@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Autofac;
+using ConnectVN.Social_Network.Admin.Infrastructure.Services;
+using ConnectVN.Social_Network.Admin.Setting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Refit;
 using Serilog;
 using Serilog.Events;
 
@@ -29,9 +33,14 @@ public class Program
         {
             Log.Information("Starting ConnectVN.Social_Network.Admin.HttpApi.Host.");
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddRefitClient<IUserServiceAPI>().ConfigureHttpClient(s =>
+            {
+                s.BaseAddress = new Uri(Environment.GetEnvironmentVariable(MainSetting.ENV_USER_SERVICE_API_URL));
+            });
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
+
             await builder.AddApplicationAsync<Social_NetworkAdminHttpApiHostModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync();
@@ -47,5 +56,7 @@ public class Program
         {
             Log.CloseAndFlush();
         }
+
     }
+
 }

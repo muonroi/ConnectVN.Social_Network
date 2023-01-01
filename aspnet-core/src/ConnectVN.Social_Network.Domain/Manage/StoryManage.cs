@@ -1,4 +1,4 @@
-﻿using ConnectVN.Social_Network.Admin.DTO;
+﻿using ConnectVN.Social_Network.Admin.DTO.Storys;
 using ConnectVN.Social_Network.Admin.Infrastructure.Extentions;
 using ConnectVN.Social_Network.Categories;
 using ConnectVN.Social_Network.Domain;
@@ -24,51 +24,51 @@ namespace ConnectVN.Social_Network.Manage
             _categoryRepository = categoryRepository;
             _tagRepository = tagRepository;
         }
-        public async Task<StoryDTO> CreateAsync(
+        public async Task<CreateUpdateStoryDTO> CreateAsync(
                         string story_Title,
                         string story_Synopsi,
                         string img_Url,
                         bool isShow,
-                        string TagName,
-                        string NameCategory,
+                        int idTag,
+                        int idCat,
                         double Rating = 0)
         {
             if (await _storyRepository.AnyAsync(x => x.Story_Title.Equals(story_Title)))
             {
                 throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumStoryErrorCode.ST09.ToString()), Social_NetworkDomainErrorCodes.ExistsStoryTitle);
             }
-            Tag tag = await _tagRepository.GetAsync(x => x.TagName.Trim().ToLower().Equals(TagName.Trim().ToLower()));
+            Tag tag = await _tagRepository.GetAsync(x => x.Id == idTag);
             if (tag == null)
             {
                 throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumTagsErrorCode.TT08.ToString()), Social_NetworkDomainErrorCodes.NoExistsTag);
             }
-            Category category = await _categoryRepository.GetAsync(x => x.NameCategory.Trim().ToLower().Equals(NameCategory.Trim().ToLower()));
+            Category category = await _categoryRepository.GetAsync(x => x.Id == idCat);
 
             if (category == null)
             {
                 throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumCategoriesErrorCode.CTS02.ToString()), Social_NetworkDomainErrorCodes.NotExistsCategory);
             }
-            return new StoryDTO(Guid.NewGuid(), tag.Id, category.Id, story_Title, story_Synopsi, img_Url, isShow, TagName, NameCategory, Rating);
+            return new CreateUpdateStoryDTO(Guid.NewGuid(), tag.Id, category.Id, story_Title, story_Synopsi, img_Url, isShow, Rating);
         }
-        public async Task<StoryDTO> UpdateAsync(Guid id, StoryDTO input)
+        public async Task<CreateUpdateStoryDTO> UpdateAsync(Guid id, CreateUpdateStoryDTO input)
         {
             Story story = await _storyRepository.GetAsync(x => x.Id == id);
             if (story == null)
             {
                 throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumStoryErrorCode.ST09.ToString()), Social_NetworkDomainErrorCodes.NotExistsStory);
             }
-            Tag tag = await _tagRepository.GetAsync(x => x.TagName.Trim().ToLower().Equals(input.TagName.Trim().ToLower()));
+            Tag tag = await _tagRepository.GetAsync(x => x.Id == input.TagId);
             if (tag == null)
             {
                 throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumTagsErrorCode.TT08.ToString()), Social_NetworkDomainErrorCodes.NoExistsTag);
             }
-            Category category = await _categoryRepository.GetAsync(x => x.NameCategory.Trim().ToLower().Equals(input.NameCategory.Trim().ToLower()));
+            Category category = await _categoryRepository.GetAsync(x => x.Id == input.CategoryId);
 
             if (category == null)
             {
                 throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumCategoriesErrorCode.CTS02.ToString()), Social_NetworkDomainErrorCodes.NotExistsCategory);
             }
-            return new StoryDTO(Guid.NewGuid(), tag.Id, category.Id, input.Story_Title, input.Story_Synopsis, input.Img_Url, input.IsShow, input.TagName, input.NameCategory, input.Rating);
+            return new CreateUpdateStoryDTO(Guid.NewGuid(), tag.Id, category.Id, input.Story_Title, input.Story_Synopsis, input.Img_Url, input.IsShow, input.Rating);
         }
     }
 }

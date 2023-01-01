@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using ConnectVN.Social_Network.Admin.DTO;
-using ConnectVN.Social_Network.Admin.StoryContract;
-using ConnectVN.Social_Network.Storys;
+using ConnectVN.Social_Network.Admin.DTO.UserMembers;
+using Volo.Abp.Identity;
 
 namespace ConnectVN.Social_Network.Admin;
 
@@ -11,13 +10,7 @@ public class Social_NetworkAdminApplicationAutoMapperProfile : Profile
     public Social_NetworkAdminApplicationAutoMapperProfile()
     {
         //Story 
-        CreateMap<Story, CreateUpdateStoryDTO>();
-        CreateMap<CreateUpdateStoryDTO, Story>();
-        CreateMap<CreateUpdateStory, Story>();
+        CreateMap<IdentityUserDto, UserMemberDTO>();
 
-        //Story detail
-        CreateMap<Story, StoryDTO>();
-        CreateMap<StoryDTO, Story>();
-        CreateMap<CreateUpdateStory, Story>();
     }
 }
