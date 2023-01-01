@@ -17,12 +17,12 @@ using Volo.Abp.Identity;
 
 namespace ConnectVN.Social_Network.Admin.UserService
 {
-    public class UserServices : CrudAppService<IdentityUser, UserMemberDTO, Guid, PagedResultRequestDto, RegisterUpdateUser, RegisterUpdateUser>, IUserService
+    public class UserService : CrudAppService<IdentityUser, UserMemberDTO, Guid, PagedResultRequestDto, RegisterUpdateUser, RegisterUpdateUser>, IUserService
     {
         private readonly UserManage _usermanage;
         private readonly IRepository<UserMember> _userMemberRepository;
         private readonly IUserServiceAPI _userServiceApi;
-        public UserServices(IRepository<IdentityUser, Guid> repository, IRepository<UserMember> userMemberRepository, IUserServiceAPI userServiceApi, UserManage usermanage) : base(repository)
+        public UserService(IRepository<IdentityUser, Guid> repository, IRepository<UserMember> userMemberRepository, IUserServiceAPI userServiceApi, UserManage usermanage) : base(repository)
         {
             _userMemberRepository = userMemberRepository;
             _userServiceApi = userServiceApi;
