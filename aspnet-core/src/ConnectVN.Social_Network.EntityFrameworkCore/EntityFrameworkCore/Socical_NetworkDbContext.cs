@@ -65,7 +65,6 @@ public class Social_NetworkDbContext :
     //Social Network
     public DbSet<Story> Stories { get; set; }
     public DbSet<Category> Categories { get; set; }
-    public DbSet<CategoryInStory> CategoryInStories { get; set; }
     public DbSet<Chapter> Chapters { get; set; }
     public DbSet<Tag> Tags { get; set; }
     public DbSet<TagInStory> TagInStories { get; set; }
@@ -112,6 +111,5 @@ public class Social_NetworkDbContext :
         builder.ApplyConfiguration(new RoleConfiguration());
         builder.ApplyConfiguration(new ChapterConfiguration());
         builder.ApplyConfiguration(new CategoryConfiguration());
-        builder.ApplyConfiguration(new CategoriesInStoryConfiguration());
     }
 }

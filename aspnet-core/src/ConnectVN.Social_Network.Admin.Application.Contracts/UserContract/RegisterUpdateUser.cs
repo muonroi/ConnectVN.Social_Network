@@ -1,4 +1,5 @@
 ﻿using ConnectVN.Social_Network.User;
+using Microsoft.AspNetCore.Http;
 using System;
 using Volo.Abp.Application.Dtos;
 
@@ -16,6 +17,7 @@ namespace ConnectVN.Social_Network.Admin.UserContract
         public DateTime BirthDate { get; set; }
         public EnumGender Gender { get; set; }
         public string Avatar { get; set; }
+        public IFormFile AvatarFile { get; set; }
         public Guid Id { get; set; }
     }
 }

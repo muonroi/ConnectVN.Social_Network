@@ -2,8 +2,9 @@
 
 public static class Social_NetworkSettings
 {
-    private const string Prefix = "Social_Network";
-
-    //Add your own setting names here. Example:
-    //public const string MySetting1 = Prefix + ".MySetting1";
+    public const string Prefix = "Social_Network";
+    public const string ENV_ENDPOINT = "ENV_ENDPOINT";
+    public const string ENV_ACCESSKEY = "ENV_ACCESSKEY";
+    public const string ENV_SECRETKEY = "ENV_SECRETKEY";
+    public const string ENV_BUCKETNAME = "ENV_BUCKETNAME";
 }

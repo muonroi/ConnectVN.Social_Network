@@ -42,5 +42,10 @@ namespace ConnectVN.Social_Network.Tags
         /// Thẻ không tồn tại
         /// </summary>
         TT08,
+
+        /// <summary>
+        /// Thêm thẻ thất bại.Vui lòng thử lại
+        /// </summary>
+        TT09,
     }
 }

@@ -27,7 +27,6 @@ namespace ConnectVN.Social_Network.Manage
         public async Task<CreateUpdateStoryDTO> CreateAsync(
                         string story_Title,
                         string story_Synopsi,
-                        string img_Url,
                         bool isShow,
                         int idTag,
                         int idCat,
@@ -48,7 +47,7 @@ namespace ConnectVN.Social_Network.Manage
             {
                 throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumCategoriesErrorCode.CTS02.ToString()), Social_NetworkDomainErrorCodes.NotExistsCategory);
             }
-            return new CreateUpdateStoryDTO(Guid.NewGuid(), tag.Id, category.Id, story_Title, story_Synopsi, img_Url, isShow, Rating);
+            return new CreateUpdateStoryDTO(Guid.NewGuid(), tag.Id, category.Id, story_Title, story_Synopsi, isShow, Rating);
         }
         public async Task<CreateUpdateStoryDTO> UpdateAsync(Guid id, CreateUpdateStoryDTO input)
         {
@@ -57,18 +56,18 @@ namespace ConnectVN.Social_Network.Manage
             {
                 throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumStoryErrorCode.ST09.ToString()), Social_NetworkDomainErrorCodes.NotExistsStory);
             }
-            Tag tag = await _tagRepository.GetAsync(x => x.Id == input.TagId);
+            Tag tag = await _tagRepository.GetAsync(x => x.Id == input.NewTagId);
             if (tag == null)
             {
                 throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumTagsErrorCode.TT08.ToString()), Social_NetworkDomainErrorCodes.NoExistsTag);
             }
-            Category category = await _categoryRepository.GetAsync(x => x.Id == input.CategoryId);
+            Category category = await _categoryRepository.GetAsync(x => x.Id == input.NewCategoryId);
 
             if (category == null)
             {
                 throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumCategoriesErrorCode.CTS02.ToString()), Social_NetworkDomainErrorCodes.NotExistsCategory);
             }
-            return new CreateUpdateStoryDTO(Guid.NewGuid(), tag.Id, category.Id, input.Story_Title, input.Story_Synopsis, input.Img_Url, input.IsShow, input.Rating);
+            return new CreateUpdateStoryDTO(id, tag.Id, category.Id, input.Story_Title, input.Story_Synopsis, input.IsShow, input.Rating);
         }
     }
 }

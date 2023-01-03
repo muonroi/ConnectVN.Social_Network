@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ConnectVN.Social_Network.Localization;
+﻿using ConnectVN.Social_Network.Localization;
 using Volo.Abp.Application.Services;
 
 namespace ConnectVN.Social_Network.Admin;

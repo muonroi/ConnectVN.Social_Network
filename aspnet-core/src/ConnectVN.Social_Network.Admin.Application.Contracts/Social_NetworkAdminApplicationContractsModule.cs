@@ -28,4 +28,5 @@ public class Social_NetworkAdminApplicationContractsModule : AbpModule
     {
         Social_NetworkAdminDtoExtensions.Configure();
     }
+
 }

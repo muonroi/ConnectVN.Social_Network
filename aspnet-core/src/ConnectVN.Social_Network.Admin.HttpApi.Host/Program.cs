@@ -37,6 +37,10 @@ public class Program
             {
                 s.BaseAddress = new Uri(Environment.GetEnvironmentVariable(MainSetting.ENV_USER_SERVICE_API_URL));
             });
+            builder.Services.AddRefitClient<IStoryServiceAPI>().ConfigureHttpClient(s =>
+            {
+                s.BaseAddress = new Uri(Environment.GetEnvironmentVariable(MainSetting.ENV_USER_SERVICE_API_URL));
+            });
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();

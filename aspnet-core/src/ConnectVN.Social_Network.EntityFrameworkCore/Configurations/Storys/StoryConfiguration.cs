@@ -13,6 +13,9 @@ namespace ConnectVN.Social_Network.Configurations.Storys
             builder.HasKey(x => x.Id);
             builder.Property(x => x.IsShow).HasDefaultValue(false);
 
+            builder.HasOne(x => x.Category)
+                .WithMany(x => x.Storys)
+                .HasForeignKey(x => x.CategoryId);
         }
     }
 }

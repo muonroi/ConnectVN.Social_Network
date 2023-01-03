@@ -11,6 +11,7 @@
   "ST08": "Vui lòng chọn trạng thái truyện (Công khai | Riêng tư)",
   "ST09": "Tên truyện đã tồn tại",
   "ST10": "Truyện không tồn tại",
+  "ST11": "Có lỗi xảy ra khi thêm truyện. Vui lòng thử lại",
   // --------------------\
 
   //Story notification
@@ -32,6 +33,7 @@
   "TT06": "Vui lòng chọn truyện",
   "TT07": "Vui lòng chọn chương truyện",
   "TT08": "Thẻ không tồn tại",
+  "TT09": "Thêm thẻ thất bại.Vui lòng thử lại",
   //--------------------\
   //User Member
   "USR01C": "Mật khẩu không hợp lệ",

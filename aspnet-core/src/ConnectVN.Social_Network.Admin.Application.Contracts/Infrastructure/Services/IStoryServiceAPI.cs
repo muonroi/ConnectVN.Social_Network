@@ -1,23 +1,18 @@
-﻿using ConnectVN.Social_Network.Admin.DTO;
+﻿using Microsoft.AspNetCore.Http;
 using Refit;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Identity;
 
 namespace ConnectVN.Social_Network.Admin.Infrastructure.Services
 {
-    public interface IUserServiceAPI
+    public interface IStoryServiceAPI
     {
-        [Post("/account/register")]
-        Task<IApiResponse<IdentityUserDto>> RegisterAsync([Body] UserSigupDTO userSigupDTO);
-
         [Multipart]
-        [Post("/app/user/upload-img")]
+        [Post("/app/story/upload-img")]
         Task<IApiResponse<string>> UploadFileImg([AliasAs("files")] StreamPart streams);
 
-        [Delete("/app/user/img")]
+        [Delete("/app/story/img")]
         Task<IApiResponse<bool>> DeleteFileImg([AliasAs("guidStory")] Guid guidStory);
     }
 }

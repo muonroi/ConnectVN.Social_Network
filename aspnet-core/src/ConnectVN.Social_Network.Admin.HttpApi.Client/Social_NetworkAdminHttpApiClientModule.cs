@@ -29,10 +29,10 @@ public class Social_NetworkAdminHttpApiClientModule : AbpModule
             typeof(Social_NetworkAdminApplicationContractsModule).Assembly,
             RemoteServiceName
         );
-
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
             options.FileSets.AddEmbedded<Social_NetworkAdminHttpApiClientModule>();
         });
+
     }
 }

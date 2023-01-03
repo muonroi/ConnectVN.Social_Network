@@ -4,6 +4,7 @@ using ConnectVN.Social_Network.Tags;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace ConnectVN.Social_Network.Storys
@@ -11,7 +12,7 @@ namespace ConnectVN.Social_Network.Storys
     /// <summary>
     /// Table Story
     /// </summary>
-    public class Story : FullAuditedAggregateRoot<Guid>
+    public class Story : FullAuditedAggregateRoot<Guid>, IHasConcurrencyStamp
     {
         public Story()
         { }
@@ -62,8 +63,12 @@ namespace ConnectVN.Social_Network.Storys
         /// Rating of story
         /// </summary>
         public double Rating { get; set; }
+        /// <summary>
+        /// Foreign key category
+        /// </summary>
+        public int CategoryId { get; set; }
         public List<Chapter> Chapters { get; set; }
-        public List<CategoryInStory> CategoryInStory { get; set; }
+        public Category Category { get; set; }
         public List<StoryNotifications> StoryNotifications { get; set; }
         public List<TagInStory> TagInStory { get; set; }
     }

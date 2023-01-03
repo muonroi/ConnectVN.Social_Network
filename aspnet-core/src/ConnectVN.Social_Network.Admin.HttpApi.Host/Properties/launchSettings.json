@@ -14,7 +14,11 @@
       "applicationUrl": "https://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ENV_USER_SERVICE_API_URL": "https://localhost:5001/api"
+        "ENV_USER_SERVICE_API_URL": "https://localhost:5001/api",
+        "ENV_ENDPOINT": "localhost:9000",
+        "ENV_ACCESSKEY": "t5cNPCUGSpb63hin",
+        "ENV_SECRETKEY": "YCoKQgH0G3xhPOOlIHNAKyK9vwockwoO",
+        "ENV_BUCKETNAME": "connectvn-img"
       }
     }
   }

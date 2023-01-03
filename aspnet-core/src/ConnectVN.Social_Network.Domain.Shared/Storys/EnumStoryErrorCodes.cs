@@ -48,6 +48,10 @@ namespace ConnectVN.Social_Network.Storys
         /// </summary>
         ST10,
 
+        /// <summary>
+        /// Có lỗi xảy ra khi thêm truyện. Vui lòng thử lại
+        /// </summary>
+        ST11,
     }
     public enum EnumNotificationStoryErrorCodes
     {
