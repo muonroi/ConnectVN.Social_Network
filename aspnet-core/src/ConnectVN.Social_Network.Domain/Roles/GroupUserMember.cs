@@ -25,7 +25,7 @@ namespace ConnectVN.Social_Network.Roles
         /// Guest (haven't account)
         /// </summary>
         public EnumGuest Guest { get; set; }
-        public List<UserMember> UserMembers { get; set; }
+        public List<AppUser> UserMembers { get; set; }
         public List<Role> Roles { get; set; }
 
     }

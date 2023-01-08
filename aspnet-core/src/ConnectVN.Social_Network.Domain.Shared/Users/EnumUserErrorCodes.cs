@@ -164,5 +164,13 @@ namespace ConnectVN.Social_Network.Users
         /// Địa chỉ tối thiểu 10 kí tự
         /// </summary>
         USRC33C,
+        /// <summary>
+        /// Ngày sinh không hợp lệ (tuổi phải lớn hơn 10, năm sinh > 1970)
+        /// </summary>
+        USRC34C,
+        /// <summary>
+        /// Giới tính lựa chọn không hợp lệ
+        /// </summary>
+        USRC35C,
     }
 }

@@ -7,4 +7,5 @@ public static class Social_NetworkSettings
     public const string ENV_ACCESSKEY = "ENV_ACCESSKEY";
     public const string ENV_SECRETKEY = "ENV_SECRETKEY";
     public const string ENV_BUCKETNAME = "ENV_BUCKETNAME";
+
 }

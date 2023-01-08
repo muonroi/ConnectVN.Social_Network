@@ -1,6 +1,7 @@
 ﻿using ConnectVN.Social_Network.Admin.DTO.Storys;
 using ConnectVN.Social_Network.Admin.Infrastructure.Extentions;
 using ConnectVN.Social_Network.Admin.Infrastructure.Services;
+using ConnectVN.Social_Network.Admin.Setting;
 using ConnectVN.Social_Network.Admin.StoryContract;
 using ConnectVN.Social_Network.Categories;
 using ConnectVN.Social_Network.Domain;
@@ -33,7 +34,9 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
         private readonly IRepository<TagInStory> _tagInstoryRepository;
         private readonly IRepository<Tag> _tagRepository;
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<UserMember> _userMemberRepository;
+        private readonly IRepository<AppUser> _userMemberRepository;
+        public IStringEncryptionService _encryptionService { get; set; }
+
         protected IStringEncryptionService StringEncryptionService { get; }
         public static readonly List<string> ImageExtensions = new() { "JPG", "JPE", "BMP", "GIF", "PNG", "JPEG" };
         public StoryService(
@@ -41,8 +44,8 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             IRepository<TagInStory> tagInstoryRepository,
             IRepository<Tag> tagRepository,
             IRepository<Category> categoryRepository,
-            IRepository<UserMember> userMemberRepository, IStringEncryptionService stringEncryptionService
-            , StoryManage storyManage, IBlobContainer<StoryFileUpload> storyFileUpload, IStoryServiceAPI storyServiceAPI) : base(repository)
+            IRepository<AppUser> userMemberRepository, IStringEncryptionService stringEncryptionService
+            , StoryManage storyManage, IBlobContainer<StoryFileUpload> storyFileUpload, IStoryServiceAPI storyServiceAPI, IStringEncryptionService encryptionService) : base(repository)
         {
             _storyManage = storyManage;
             _tagInstoryRepository = tagInstoryRepository;
@@ -52,6 +55,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             StringEncryptionService = stringEncryptionService;
             _storyFileUpload = storyFileUpload;
             _storyServiceAPI = storyServiceAPI;
+            _encryptionService = encryptionService;
         }
 
         public async Task DeleteMultipleStoryAsync(IEnumerable<Guid> guidId)
@@ -61,6 +65,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
         {
             try
             {
+                String encryptedGoogleAppPassword = _encryptionService.Encrypt(MainSetting.ENV_APP_GOOGLE_PASSWORD);
                 Story queryStory = await Repository.GetAsync(id);
                 DetailStoryDTO story = null;
                 if (queryStory == null)
@@ -87,7 +92,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                 {
                     throw new BusinessException(EnumTagsErrorCode.TT08.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenGetStory);
                 }
-                UserMember author = await _userMemberRepository.GetAsync(x => x.Id.Equals(queryStory.CreatorId));
+                AppUser author = await _userMemberRepository.GetAsync(x => x.Id.Equals(queryStory.CreatorId));
                 if (author == null)
                 {
                     throw new BusinessException(EnumUserErrorCodes.USR02C.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenGetStory);
@@ -101,7 +106,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                     IsShow = queryStory.IsShow,
                     NameCategory = queryCategory.NameCategory,
                     TagName = queryTag.TagName,
-                    AuthorName = author.LastName + " " + author.FirstName,
+                    AuthorName = author.Surname + " " + author.Name,
                     TotalFavorite = queryStory.TotalFavorite,
                     TotalViews = queryStory.TotalView,
                     Rating = queryStory.Rating,
@@ -136,7 +141,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                 {
                     throw new BusinessException(EnumTagsErrorCode.TT08.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenGetStory);
                 }
-                IQueryable<UserMember> userMembers = await _userMemberRepository.GetQueryableAsync();
+                IQueryable<AppUser> userMembers = await _userMemberRepository.GetQueryableAsync();
                 if (userMembers == null)
                 {
                     throw new BusinessException(EnumUserErrorCodes.USR02C.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenGetStory);
@@ -170,7 +175,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                         IsShow = item.story.IsShow,
                         NameCategory = item.category.NameCategory,
                         TagName = item.tagInStoryGetStory.TagName,
-                        AuthorName = item.author.LastName + " " + item.author.FirstName,
+                        AuthorName = item.author.Surname + " " + item.author.Name,
                         TotalFavorite = item.story.TotalFavorite,
                         TotalViews = item.story.TotalView,
                         Rating = item.story.Rating,
@@ -205,7 +210,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                 {
                     throw new BusinessException(EnumTagsErrorCode.TT08.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenGetStory);
                 }
-                IQueryable<UserMember> userMembers = await _userMemberRepository.GetQueryableAsync();
+                IQueryable<AppUser> userMembers = await _userMemberRepository.GetQueryableAsync();
                 if (userMembers == null)
                 {
                     throw new BusinessException(EnumUserErrorCodes.USR02C.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenGetStory);
@@ -240,7 +245,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                         IsShow = item.story.IsShow,
                         NameCategory = item.cat.NameCategory,
                         TagName = item.TaginstoryStory.TagName,
-                        AuthorName = item.author.LastName + " " + item.author.FirstName,
+                        AuthorName = item.author.Surname + " " + item.author.Name,
                         TotalFavorite = item.story.TotalFavorite,
                         TotalViews = item.story.TotalView,
                         Rating = item.story.Rating,
@@ -314,7 +319,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                 {
                     throw new BusinessException(EnumTagsErrorCode.TT08.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenCreateStory);
                 }
-                UserMember author = await _userMemberRepository.GetAsync(x => x.Id.Equals(result.CreatorId));
+                AppUser author = await _userMemberRepository.GetAsync(x => x.Id.Equals(result.CreatorId));
                 if (author == null)
                 {
                     throw new BusinessException(EnumUserErrorCodes.USR02C.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenCreateStory);
@@ -328,7 +333,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                     IsShow = storyDto.IsShow,
                     NameCategory = queryCategory.NameCategory,
                     TagName = queryTag.TagName,
-                    AuthorName = author.LastName + " " + author.FirstName,
+                    AuthorName = author.Surname + " " + author.Name,
                     TotalFavorite = result.TotalFavorite,
                     TotalViews = result.TotalView,
                     Rating = result.Rating,
@@ -380,7 +385,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                 await _tagInstoryRepository.InsertAsync(new TagInStory { TagId = input.NewTagId, StoryGuid = StoryGuid });
 
                 Guid authorGuid = Repository.GetAsync(x => x.Id == StoryGuid).Result.CreatorId.Value;
-                UserMember author = await _userMemberRepository.GetAsync(x => x.Id.Equals(authorGuid));
+                AppUser author = await _userMemberRepository.GetAsync(x => x.Id.Equals(authorGuid));
                 if (author == null)
                 {
                     throw new BusinessException(EnumUserErrorCodes.USR02C.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenUpdateStory);
@@ -406,7 +411,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                     IsShow = story.IsShow,
                     NameCategory = queryCategory.NameCategory,
                     TagName = queryTag.TagName,
-                    AuthorName = author.LastName + " " + author.FirstName,
+                    AuthorName = author.Surname + " " + author.Name,
                     TotalFavorite = story.TotalFavorite,
                     TotalViews = story.TotalView,
                     ConcurrencyStamp = story.ConcurrencyStamp,
@@ -427,7 +432,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                 using var memoryStream = new MemoryStream();
                 await files.CopyToAsync(memoryStream).ConfigureAwait(false);
                 string id = Guid.NewGuid().ToString() + "." + files.ContentType;
-                string filename = $"{ConstName.DefaultNameImg + "_" + files.FileName}";
+                string filename = FolderSetting.IMG_STORY + $"{ConstName.DefaultNameImg + "_" + files.FileName}";
                 await _storyFileUpload.SaveAsync(filename, memoryStream.ToArray(), overrideExisting: true).ConfigureAwait(false);
                 string result = id + '*' + filename;
                 return result;

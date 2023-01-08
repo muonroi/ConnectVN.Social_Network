@@ -9,4 +9,8 @@ public class HomeController : AbpController
     {
         return Redirect("~/swagger");
     }
+    public IActionResult Register()
+    {
+        return View();
+    }
 }

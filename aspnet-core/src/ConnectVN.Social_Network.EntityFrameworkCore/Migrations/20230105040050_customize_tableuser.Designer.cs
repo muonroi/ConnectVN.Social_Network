@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace ConnectVN.Social_Network.Migrations
 {
     [DbContext(typeof(Social_NetworkDbContext))]
-    [Migration("20221231160940_FinnalStoryTable")]
-    partial class FinnalStoryTable
+    [Migration("20230105040050_customize_tableuser")]
+    partial class customize_tableuser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,40 +62,6 @@ namespace ConnectVN.Social_Network.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppCategory", (string)null);
-                });
-
-            modelBuilder.Entity("ConnectVN.Social_Network.Categories.CategoryInStory", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("StoryGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
-
-                    b.HasKey("CategoryId", "StoryGuid");
-
-                    b.HasIndex("StoryGuid");
-
-                    b.ToTable("AppCategoryInStory", (string)null);
                 });
 
             modelBuilder.Entity("ConnectVN.Social_Network.Chapters.Chapter", b =>
@@ -247,6 +213,9 @@ namespace ConnectVN.Social_Network.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasMaxLength(40)
@@ -317,6 +286,8 @@ namespace ConnectVN.Social_Network.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("AppStory", (string)null);
                 });
@@ -632,129 +603,6 @@ namespace ConnectVN.Social_Network.Migrations
                     b.HasIndex("UserGuid");
 
                     b.ToTable("AppFollowingAuthor", (string)null);
-                });
-
-            modelBuilder.Entity("ConnectVN.Social_Network.Users.UserMember", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ActiveToken")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("Avatar")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("DeleterId");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletionTime");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<Guid>("ForgotToken")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("IsDeleted");
-
-                    b.Property<DateTime>("LastLogin")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("LockReason")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LoginAttemp")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Profile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("TokenExpiredTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("Member", (string)null);
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -1365,6 +1213,10 @@ namespace ConnectVN.Social_Network.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletionTime");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
@@ -1485,6 +1337,8 @@ namespace ConnectVN.Social_Network.Migrations
                     b.HasIndex("UserName");
 
                     b.ToTable("AbpUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Volo.Abp.Identity.IdentityUserClaim", b =>
@@ -2199,23 +2053,72 @@ namespace ConnectVN.Social_Network.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
-            modelBuilder.Entity("ConnectVN.Social_Network.Categories.CategoryInStory", b =>
+            modelBuilder.Entity("ConnectVN.Social_Network.Users.AppUser", b =>
                 {
-                    b.HasOne("ConnectVN.Social_Network.Categories.Category", "Category")
-                        .WithMany("CategoryInStory")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasBaseType("Volo.Abp.Identity.IdentityUser");
 
-                    b.HasOne("ConnectVN.Social_Network.Storys.Story", "Story")
-                        .WithMany("CategoryInStory")
-                        .HasForeignKey("StoryGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("ActiveToken")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Navigation("Category");
+                    b.Property<string>("Address")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
-                    b.Navigation("Story");
+                    b.Property<string>("Avatar")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<Guid>("ForgotToken")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LockReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LoginAttemp")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Profile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("TokenExpiredTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasDiscriminator().HasValue("AppUser");
                 });
 
             modelBuilder.Entity("ConnectVN.Social_Network.Chapters.Chapter", b =>
@@ -2240,6 +2143,17 @@ namespace ConnectVN.Social_Network.Migrations
                     b.Navigation("GroupUserMember");
                 });
 
+            modelBuilder.Entity("ConnectVN.Social_Network.Storys.Story", b =>
+                {
+                    b.HasOne("ConnectVN.Social_Network.Categories.Category", "Category")
+                        .WithMany("Storys")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("ConnectVN.Social_Network.Storys.StoryNotifications", b =>
                 {
                     b.HasOne("ConnectVN.Social_Network.Storys.Story", "Story")
@@ -2248,7 +2162,7 @@ namespace ConnectVN.Social_Network.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ConnectVN.Social_Network.Users.UserMember", "UserMember")
+                    b.HasOne("ConnectVN.Social_Network.Users.AppUser", "UserMember")
                         .WithMany("StoryNotifications")
                         .HasForeignKey("UserGuid")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2261,7 +2175,7 @@ namespace ConnectVN.Social_Network.Migrations
 
             modelBuilder.Entity("ConnectVN.Social_Network.Storys.StoryPublish", b =>
                 {
-                    b.HasOne("ConnectVN.Social_Network.Users.UserMember", "UserMember")
+                    b.HasOne("ConnectVN.Social_Network.Users.AppUser", "UserMember")
                         .WithMany("StoryPublish")
                         .HasForeignKey("UserGuid")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2272,7 +2186,7 @@ namespace ConnectVN.Social_Network.Migrations
 
             modelBuilder.Entity("ConnectVN.Social_Network.Storys.StoryReview", b =>
                 {
-                    b.HasOne("ConnectVN.Social_Network.Users.UserMember", "UserMember")
+                    b.HasOne("ConnectVN.Social_Network.Users.AppUser", "UserMember")
                         .WithMany("StoryReview")
                         .HasForeignKey("UserGuid")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2302,7 +2216,7 @@ namespace ConnectVN.Social_Network.Migrations
 
             modelBuilder.Entity("ConnectVN.Social_Network.Users.BookMarkStory", b =>
                 {
-                    b.HasOne("ConnectVN.Social_Network.Users.UserMember", "UserMember")
+                    b.HasOne("ConnectVN.Social_Network.Users.AppUser", "UserMember")
                         .WithMany("BookMarkStory")
                         .HasForeignKey("UserGuid")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2313,22 +2227,13 @@ namespace ConnectVN.Social_Network.Migrations
 
             modelBuilder.Entity("ConnectVN.Social_Network.Users.FollowingAuthor", b =>
                 {
-                    b.HasOne("ConnectVN.Social_Network.Users.UserMember", "UserMember")
+                    b.HasOne("ConnectVN.Social_Network.Users.AppUser", "UserMember")
                         .WithMany("FollowingAuthor")
                         .HasForeignKey("UserGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("UserMember");
-                });
-
-            modelBuilder.Entity("ConnectVN.Social_Network.Users.UserMember", b =>
-                {
-                    b.HasOne("ConnectVN.Social_Network.Roles.GroupUserMember", "GroupUserMember")
-                        .WithMany("UserMembers")
-                        .HasForeignKey("GroupId");
-
-                    b.Navigation("GroupUserMember");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
@@ -2473,9 +2378,18 @@ namespace ConnectVN.Social_Network.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ConnectVN.Social_Network.Users.AppUser", b =>
+                {
+                    b.HasOne("ConnectVN.Social_Network.Roles.GroupUserMember", "GroupUserMember")
+                        .WithMany("UserMembers")
+                        .HasForeignKey("GroupId");
+
+                    b.Navigation("GroupUserMember");
+                });
+
             modelBuilder.Entity("ConnectVN.Social_Network.Categories.Category", b =>
                 {
-                    b.Navigation("CategoryInStory");
+                    b.Navigation("Storys");
                 });
 
             modelBuilder.Entity("ConnectVN.Social_Network.Roles.GroupUserMember", b =>
@@ -2487,8 +2401,6 @@ namespace ConnectVN.Social_Network.Migrations
 
             modelBuilder.Entity("ConnectVN.Social_Network.Storys.Story", b =>
                 {
-                    b.Navigation("CategoryInStory");
-
                     b.Navigation("Chapters");
 
                     b.Navigation("StoryNotifications");
@@ -2499,19 +2411,6 @@ namespace ConnectVN.Social_Network.Migrations
             modelBuilder.Entity("ConnectVN.Social_Network.Tags.Tag", b =>
                 {
                     b.Navigation("TagInStory");
-                });
-
-            modelBuilder.Entity("ConnectVN.Social_Network.Users.UserMember", b =>
-                {
-                    b.Navigation("BookMarkStory");
-
-                    b.Navigation("FollowingAuthor");
-
-                    b.Navigation("StoryNotifications");
-
-                    b.Navigation("StoryPublish");
-
-                    b.Navigation("StoryReview");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -2552,6 +2451,19 @@ namespace ConnectVN.Social_Network.Migrations
             modelBuilder.Entity("Volo.Abp.TenantManagement.Tenant", b =>
                 {
                     b.Navigation("ConnectionStrings");
+                });
+
+            modelBuilder.Entity("ConnectVN.Social_Network.Users.AppUser", b =>
+                {
+                    b.Navigation("BookMarkStory");
+
+                    b.Navigation("FollowingAuthor");
+
+                    b.Navigation("StoryNotifications");
+
+                    b.Navigation("StoryPublish");
+
+                    b.Navigation("StoryReview");
                 });
 #pragma warning restore 612, 618
         }

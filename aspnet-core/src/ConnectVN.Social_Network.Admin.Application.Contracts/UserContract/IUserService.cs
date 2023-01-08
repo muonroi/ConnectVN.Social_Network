@@ -5,7 +5,6 @@ using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Identity;
 
 namespace ConnectVN.Social_Network.Admin.UserContract
 {

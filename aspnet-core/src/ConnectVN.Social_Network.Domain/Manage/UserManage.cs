@@ -9,14 +9,14 @@ namespace ConnectVN.Social_Network.Manage
 {
     public class UserManage : DomainService
     {
-        public IRepository<UserMember> _usermemberRepository;
-        public UserManage(IRepository<UserMember> usermemberRepository)
+        public IRepository<AppUser> _usermemberRepository;
+        public UserManage(IRepository<AppUser> usermemberRepository)
         {
             _usermemberRepository = usermemberRepository;
         }
-        public UserMember CreateUser(RegisterUpdateUser input)
+        public AppUser CreateUser(RegisterUpdateUser input)
         {
-            return new UserMember(Guid.NewGuid(), input.FirstName, input.LastName, input.UserName, input.Password, input.Email, input.PhoneNumber, input.Address, input.BirthDate, input.Gender, input.Avatar);
+            return new AppUser(Guid.NewGuid(), input.FirstName, input.LastName, input.UserName, input.Password, input.Email, input.PhoneNumber, input.Address, input.BirthDate, input.Gender, input.Avatar);
         }
     }
 }

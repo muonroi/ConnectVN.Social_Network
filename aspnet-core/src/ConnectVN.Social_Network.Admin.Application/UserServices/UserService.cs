@@ -27,11 +27,11 @@ namespace ConnectVN.Social_Network.Admin.UserService
     public class UserService : CrudAppService<IdentityUser, UserMemberDTO, Guid, PagedResultRequestDto, RegisterUpdateUser, RegisterUpdateUser>, IUserService
     {
         private readonly UserManage _usermanage;
-        private readonly IRepository<UserMember> _userMemberRepository;
+        private readonly IRepository<AppUser> _userMemberRepository;
         private readonly IUserServiceAPI _userServiceApi;
         public static readonly List<string> ImageExtensions = new() { "JPG", "JPE", "BMP", "GIF", "PNG", "JPEG" };
         private readonly IBlobContainer<UserUploadAvatar> _userUploadAvatarUpload;
-        public UserService(IRepository<IdentityUser, Guid> repository, IRepository<UserMember> userMemberRepository, IUserServiceAPI userServiceApi, UserManage usermanage, IBlobContainer<UserUploadAvatar> userUploadAvatarUpload) : base(repository)
+        public UserService(IRepository<IdentityUser, Guid> repository, IRepository<AppUser> userMemberRepository, IUserServiceAPI userServiceApi, UserManage usermanage, IBlobContainer<UserUploadAvatar> userUploadAvatarUpload) : base(repository)
         {
             _userMemberRepository = userMemberRepository;
             _userServiceApi = userServiceApi;
@@ -56,7 +56,7 @@ namespace ConnectVN.Social_Network.Admin.UserService
         {
             try
             {
-                UserMember userMember = _usermanage.CreateUser(input);
+                AppUser userMember = _usermanage.CreateUser(input);
                 UserSigupDTO sigupDTO = new()
                 {
                     UserName = input.UserName,
@@ -111,7 +111,7 @@ namespace ConnectVN.Social_Network.Admin.UserService
         {
             try
             {
-                UserMember currentFile = await _userMemberRepository.GetAsync(x => x.Id == guidStory);
+                AppUser currentFile = await _userMemberRepository.GetAsync(x => x.Id == guidStory);
                 string contentType = currentFile.Avatar.Split('.', '*')[1];
                 if (currentFile != null)
                 {
@@ -131,7 +131,7 @@ namespace ConnectVN.Social_Network.Admin.UserService
         {
             try
             {
-                UserMember currentFile = await _userMemberRepository.GetAsync(x => x.Id == guidStory);
+                AppUser currentFile = await _userMemberRepository.GetAsync(x => x.Id == guidStory);
                 string contentType = currentFile.Avatar.Split('.', '*')[1];
                 if (currentFile != null)
                 {
@@ -146,7 +146,7 @@ namespace ConnectVN.Social_Network.Admin.UserService
             {
                 throw new BusinessException(ex.ToString().GetMessage(), Social_NetworkDomainErrorCodes.UnknowError);
             }
-
         }
+
     }
 }

@@ -20,6 +20,6 @@ namespace ConnectVN.Social_Network.Users
         /// </summary>
         [Required(ErrorMessage = nameof(EnumTagsErrorCode.TT05))]
         public Guid StoryGuid { get; set; }
-        public UserMember UserMember { get; set; }
+        public AppUser UserMember { get; set; }
     }
 }

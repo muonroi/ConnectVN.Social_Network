@@ -1,14 +1,21 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Autofac;
+using ConnectVN.Social_Network.Admin.Infrastructure.Extentions;
 using ConnectVN.Social_Network.Admin.Infrastructure.Services;
 using ConnectVN.Social_Network.Admin.Setting;
+using ConnectVN.Social_Network.User;
+using ConnectVN.Social_Network.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Refit;
 using Serilog;
 using Serilog.Events;
+using Volo.Abp.Account;
+using Volo.Abp.ObjectExtending;
 
 namespace ConnectVN.Social_Network.Admin;
 
@@ -44,7 +51,65 @@ public class Program
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
-
+            ObjectExtensionManager.Instance.AddOrUpdate<RegisterDto>(options =>
+               options.AddOrUpdateProperty<string>("PhoneNumber", options =>
+               {
+                   options.Attributes.Add(new RequiredAttribute());
+                   options.Attributes.Add(
+                       new StringLengthAttribute(20)
+                       {
+                           MinimumLength = 10
+                       }
+                   );
+               })
+           );
+            ObjectExtensionManager.Instance.AddOrUpdate<RegisterDto>(options =>
+              options.AddOrUpdateProperty<string>("Address", options =>
+              {
+                  options.Attributes.Add(new RequiredAttribute());
+                  options.Attributes.Add(
+                      new StringLengthAttribute(200)
+                      {
+                          MinimumLength = 10
+                      }
+                  );
+              })
+          );
+            ObjectExtensionManager.Instance.AddOrUpdate<RegisterDto>(options =>
+             options.AddOrUpdateProperty<DateTime>("BirthDate", options =>
+             {
+                 options.Validators.Add(
+                     context =>
+                     {
+                         DateTime birthDate = Convert.ToDateTime(context.Value);
+                         DateTime currentTime = DateTime.Now;
+                         if (birthDate.Year > DateTime.Now.Year || birthDate.Year < 1970 || (currentTime.Year - birthDate.Year) <= 10)
+                         {
+                             context.ValidationErrors.Add(new ValidationResult(
+                                 GetErrorMessage.GetMessage(nameof(EnumUserErrorCodes.USRC34C)), new[] { "Ngày sinh" }
+                                 ));
+                         }
+                     }
+                 );
+             })
+         );
+            ObjectExtensionManager.Instance.AddOrUpdate<RegisterDto>(option =>
+             option.AddOrUpdateProperty<EnumGender>("Gender", options =>
+             {
+                 options.Validators.Add(
+                     context =>
+                     {
+                         bool success = Enum.IsDefined(typeof(EnumGender), (int)(long)context.Value);
+                         if (!success)
+                         {
+                             context.ValidationErrors.Add(new ValidationResult(
+                                 GetErrorMessage.GetMessage(nameof(EnumUserErrorCodes.USRC35C)), new[] { "Giới tính" }
+                                 ));
+                         }
+                     }
+                 );
+             })
+         );
             await builder.AddApplicationAsync<Social_NetworkAdminHttpApiHostModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync();

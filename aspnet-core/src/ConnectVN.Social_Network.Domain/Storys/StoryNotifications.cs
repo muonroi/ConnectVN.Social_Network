@@ -53,6 +53,6 @@ namespace ConnectVN.Social_Network.Storys
         public string Img_Url { get; set; }
 
         public Story Story { get; set; }
-        public UserMember UserMember { get; set; }
+        public AppUser UserMember { get; set; }
     }
 }

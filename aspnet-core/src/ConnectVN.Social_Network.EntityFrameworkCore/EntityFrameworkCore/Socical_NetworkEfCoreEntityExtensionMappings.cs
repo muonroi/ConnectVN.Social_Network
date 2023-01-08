@@ -1,4 +1,6 @@
 ﻿using ConnectVN.Social_Network.Domain;
+using Volo.Abp.Account;
+using Volo.Abp.ObjectExtending;
 using Volo.Abp.Threading;
 
 namespace ConnectVN.Social_Network.Common.EntityFrameworkCore;
@@ -14,6 +16,7 @@ public static class Social_NetworkEfCoreEntityExtensionMappings
 
         OneTimeRunner.Run(() =>
         {
+
             /* You can configure extra properties for the
              * entities defined in the modules used by your application.
              *

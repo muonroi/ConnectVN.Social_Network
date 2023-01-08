@@ -34,6 +34,8 @@ public class Social_NetworkAdminApplicationModule : AbpModule
         {
             options.AddMaps<Social_NetworkAdminApplicationModule>();
         });
+
+
         Configure<AbpBlobStoringOptions>(options =>
         {
             options.Containers.ConfigureDefault(container =>

@@ -4,27 +4,26 @@ using ConnectVN.Social_Network.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Identity;
 
 namespace ConnectVN.Social_Network.Users
 {
     /// <summary>
     /// Table User Members
     /// </summary>
-    public class UserMember : FullAuditedAggregateRoot<Guid>
+    public class AppUser : IdentityUser
     {
-        public UserMember()
+        public AppUser()
         {
 
         }
-        public UserMember(Guid guidId, string firstName, string lastName, string userName, string password, string email, string phoneNumber, string address, DateTime birthDate, EnumGender gender, string avatarLink)
+        public AppUser(Guid guidId, string firstName, string lastName, string userName, string password, string email, string phoneNumber, string address, DateTime birthDate, EnumGender gender, string avatarLink)
         {
             Id = guidId;
-            FirstName = firstName;
-            LastName = lastName;
+            Name = firstName;
+            Surname = lastName;
             UserName = userName;
-            Password = password;
+            PasswordHash = password;
             Email = email;
             PhoneNumber = phoneNumber;
             Address = address;
@@ -37,13 +36,13 @@ namespace ConnectVN.Social_Network.Users
         /// </summary>
         [Required(ErrorMessage = nameof(EnumUserErrorCodes.USR03C))]
         [MaxLength(100, ErrorMessage = nameof(EnumUserErrorCodes.USR08C))]
-        public string FirstName { get; set; }
+        public override string Name { get; set; }
         /// <summary>
         /// LastName''s User
         /// </summary>
         [Required(ErrorMessage = nameof(EnumUserErrorCodes.USR04C))]
         [MaxLength(100, ErrorMessage = nameof(EnumUserErrorCodes.USR09C))]
-        public string LastName { get; set; }
+        public override string Surname { get; set; }
         /// <summary>
         /// UserName''s User
         /// </summary>
@@ -51,7 +50,7 @@ namespace ConnectVN.Social_Network.Users
         [MaxLength(100, ErrorMessage = nameof(EnumUserErrorCodes.USR10C))]
         [MinLength(5, ErrorMessage = nameof(EnumUserErrorCodes.USR15C))]
         [RegularExpression(@"^[a-zA-Z][a-zA-Z0-9_\.]{3,99}[a-z0-9](\@([a-zA-Z0-9][a-zA-Z0-9\.]+[a-zA-Z0-9]{2,}){1,5})?$", ErrorMessage = nameof(EnumUserErrorCodes.USR14C))]
-        public string UserName { get; set; }
+        public override string UserName { get; protected set; }
         /// <summary>
         /// Password''s User
         /// </summary>
@@ -59,18 +58,18 @@ namespace ConnectVN.Social_Network.Users
         [MaxLength(1000, ErrorMessage = nameof(EnumUserErrorCodes.USR11C))]
         [MinLength(8, ErrorMessage = nameof(EnumUserErrorCodes.USR26C))]
         [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = nameof(EnumUserErrorCodes.USR17C))]
-        public string Password { get; set; }
+        public override string PasswordHash { get; protected set; }
         /// <summary>
         /// Email''s User
         /// </summary>
         [MaxLength(1000, ErrorMessage = nameof(EnumUserErrorCodes.USR20C))]
         [EmailAddress(ErrorMessage = nameof(EnumUserErrorCodes.USR19C))]
-        public string Email { get; set; }
+        public override string Email { get; protected set; }
         /// <summary>
         /// PhoneNumber''s User
         /// </summary>
         [RegularExpression(@"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$", ErrorMessage = nameof(EnumUserErrorCodes.USR21C))]
-        public string PhoneNumber { get; set; }
+        public override string PhoneNumber { get; protected set; }
         /// <summary>
         /// Address''s User
         /// </summary>
@@ -114,34 +113,6 @@ namespace ConnectVN.Social_Network.Users
         /// </summary>
         /// <value></value>
         public string LockReason { get; set; }
-
-        /// <summary>
-        /// Số lần được phép login sai
-        /// </summary>
-        /// <value></value>
-        public int LoginAttemp { get; set; }
-
-        /// <summary>       
-        /// Profile
-        /// </summary>
-        public string Profile { get; set; }
-
-        /// <summary>
-        /// Mã kích hoạt tài khoản
-        /// </summary>
-        /// <value></value>
-
-        public Guid ActiveToken { get; set; }
-
-        /// <summary>
-        /// Mã kích hoạt quên mật khẩu
-        /// </summary>
-        public Guid ForgotToken { get; set; }
-
-        /// <summary>
-        /// Thời hạn mã kích hoạt quên mật khẩu
-        /// </summary>
-        public DateTime? TokenExpiredTime { get; set; }
 
         /// <summary>
         /// GroupId of account

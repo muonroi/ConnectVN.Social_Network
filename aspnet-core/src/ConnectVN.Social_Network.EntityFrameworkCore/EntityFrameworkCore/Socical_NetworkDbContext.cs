@@ -71,7 +71,6 @@ public class Social_NetworkDbContext :
     public DbSet<BookMarkStory> BookMarkStories { get; set; }
     public DbSet<StoryPublish> StoryPublishes { get; set; }
     public DbSet<StoryNotifications> StoryNotifications { get; set; }
-    public DbSet<UserMember> UserMembers { get; set; }
     public DbSet<GroupUserMember> GroupUserMembers { get; set; }
     public DbSet<Role> UserRoles { get; set; }
     public DbSet<FollowingAuthor> FollowingAuthors { get; set; }

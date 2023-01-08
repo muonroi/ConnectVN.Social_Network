@@ -23,6 +23,6 @@ namespace ConnectVN.Social_Network.Users
         /// BookmarkDate
         /// </summary>
         public DateTime BookmarkDate { get; set; }
-        public UserMember UserMember { get; set; }
+        public AppUser UserMember { get; set; }
     }
 }

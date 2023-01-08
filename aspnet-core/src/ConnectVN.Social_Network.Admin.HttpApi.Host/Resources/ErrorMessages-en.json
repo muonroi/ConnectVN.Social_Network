@@ -69,6 +69,8 @@
   "USR31C": "Email bắt buộc phải nhập",
   "USR32C": "Địa chỉ không được trống",
   "USRC33C": "Địa chỉ tối thiểu 10 kí tự",
+  "USRC34C": "Ngày sinh không hợp lệ (tuổi phải lớn hơn 10, năm sinh > 1970)",
+  "USRC35C": "Giới tính lựa chọn không hợp lệ",
   //--------------------\
 
   //Role
