@@ -32,6 +32,7 @@ using ConnectVN.Social_Network.Common.EntityFrameworkCore;
 using ConnectVN.Social_Network.Common.Domain;
 using Volo.Abp.BlobStoring.Minio;
 using Volo.Abp.BlobStoring;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConnectVN.Social_Network.Admin;
 
@@ -241,5 +242,12 @@ public class Social_NetworkAdminHttpApiHostModule : AbpModule
         app.UseAbpSerilogEnrichers();
         app.UseUnitOfWork();
         app.UseConfiguredEndpoints();
+    }
+    public override void PreConfigureServices(ServiceConfigurationContext context)
+    {
+        PreConfigure<IdentityBuilder>(builder =>
+        {
+            builder.AddDefaultTokenProviders();
+        });
     }
 }

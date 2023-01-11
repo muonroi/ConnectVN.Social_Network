@@ -64,6 +64,13 @@ namespace ConnectVN.Social_Network.Storys
         /// </summary>
         public double Rating { get; set; }
         /// <summary>
+        /// Slug of story
+        /// </summary>
+        [Required(ErrorMessage = nameof(EnumStoryErrorCode.ST00))]
+        [MaxLength(255, ErrorMessage = nameof(EnumStoryErrorCode.ST01))]
+        [MinLength(3, ErrorMessage = nameof(EnumStoryErrorCode.ST02))]
+        public string Slug { get; set; }
+        /// <summary>
         /// Foreign key category
         /// </summary>
         public int CategoryId { get; set; }

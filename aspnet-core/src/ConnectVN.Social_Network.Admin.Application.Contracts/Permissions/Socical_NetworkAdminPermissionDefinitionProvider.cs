@@ -8,9 +8,9 @@ public class Social_NetworkAdminPermissionDefinitionProvider : PermissionDefinit
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        var myGroup = context.AddGroup(Social_NetworkAdminPermissions.GroupName);
-        //Define your own permissions here. Example:
-        //myGroup.AddPermission(Social_NetworkPermissions.MyPermission1, L("Permission:MyPermission1"));
+        var myGroup = context.AddGroup("Administrator");
+        myGroup.AddPermission("Administrator_Author_Create");
+
     }
 
     private static LocalizableString L(string name)

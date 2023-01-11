@@ -3,9 +3,11 @@ using ConnectVN.Social_Network.Storys;
 using ConnectVN.Social_Network.User;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using Volo.Abp;
 using Volo.Abp.Identity;
-
 namespace ConnectVN.Social_Network.Users
 {
     /// <summary>
@@ -16,6 +18,30 @@ namespace ConnectVN.Social_Network.Users
         public AppUser()
         {
 
+        }
+        public AppUser(
+        Guid id,
+        [NotNull] string userName,
+        [NotNull] string email,
+        Guid? tenantId = null)
+        {
+            Check.NotNull(userName, nameof(userName));
+            Check.NotNull(email, nameof(email));
+            Id = id;
+            TenantId = tenantId;
+            UserName = userName;
+            NormalizedUserName = userName.ToUpperInvariant();
+            Email = email;
+            NormalizedEmail = email.ToUpperInvariant();
+            ConcurrencyStamp = Guid.NewGuid().ToString("N");
+            SecurityStamp = Guid.NewGuid().ToString();
+            IsActive = true;
+
+            Roles = new Collection<IdentityUserRole>();
+            Claims = new Collection<IdentityUserClaim>();
+            Logins = new Collection<IdentityUserLogin>();
+            Tokens = new Collection<IdentityUserToken>();
+            OrganizationUnits = new Collection<IdentityUserOrganizationUnit>();
         }
         public AppUser(Guid guidId, string firstName, string lastName, string userName, string password, string email, string phoneNumber, string address, DateTime birthDate, EnumGender gender, string avatarLink)
         {

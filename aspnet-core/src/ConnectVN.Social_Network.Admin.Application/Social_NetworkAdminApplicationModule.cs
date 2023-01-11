@@ -24,7 +24,6 @@ namespace ConnectVN.Social_Network.Admin;
     typeof(AbpFeatureManagementApplicationModule),
     typeof(AbpSettingManagementApplicationModule),
     typeof(AbpBlobStoringMinioModule)
-
     )]
 public class Social_NetworkAdminApplicationModule : AbpModule
 {
