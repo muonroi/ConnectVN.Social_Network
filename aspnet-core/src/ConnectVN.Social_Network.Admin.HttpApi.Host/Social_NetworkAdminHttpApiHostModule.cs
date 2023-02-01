@@ -124,7 +124,7 @@ public class Social_NetworkAdminHttpApiHostModule : AbpModule
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Social_Network Admin API", Version = "v1" });
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, "ConnectVN.Social_Network.Admin.Application.xml");
+                string xmlPath = Path.Combine(AppContext.BaseDirectory, "ConnectVN.Social_Network.Admin.Application.xml");
                 options.IncludeXmlComments(xmlPath);
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
@@ -221,7 +221,6 @@ public class Social_NetworkAdminHttpApiHostModule : AbpModule
         app.UseRouting();
         app.UseCors();
         app.UseAuthentication();
-
         if (MultiTenancyConsts.IsEnabled)
         {
             app.UseMultiTenancy();

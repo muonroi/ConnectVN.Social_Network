@@ -55,6 +55,7 @@ public class Program
                 .UseSerilog();
             await builder.AddApplicationAsync<Social_NetworkAdminHttpApiHostModule>();
             var app = builder.Build();
+            app.UseRouting();
             await app.InitializeApplicationAsync();
             await app.RunAsync();
             return 0;
