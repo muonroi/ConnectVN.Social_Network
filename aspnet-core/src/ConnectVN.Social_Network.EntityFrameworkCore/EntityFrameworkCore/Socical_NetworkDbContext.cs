@@ -75,6 +75,8 @@ public class Social_NetworkDbContext :
     public DbSet<Role> UserRoles { get; set; }
     public DbSet<FollowingAuthor> FollowingAuthors { get; set; }
     public DbSet<StoryReview> StoryReviews { get; set; }
+    public DbSet<AppUser> AppUsers { get; set; }
+
     #endregion
 
     public Social_NetworkDbContext(DbContextOptions<Social_NetworkDbContext> options)

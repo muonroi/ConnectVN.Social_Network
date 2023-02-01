@@ -30,7 +30,6 @@ using Volo.Abp.VirtualFileSystem;
 using ConnectVN.Social_Network.Domain;
 using ConnectVN.Social_Network.Common.EntityFrameworkCore;
 using ConnectVN.Social_Network.Common.Domain;
-using Volo.Abp.BlobStoring.Minio;
 using Volo.Abp.BlobStoring;
 using Microsoft.AspNetCore.Identity;
 
@@ -125,6 +124,8 @@ public class Social_NetworkAdminHttpApiHostModule : AbpModule
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Social_Network Admin API", Version = "v1" });
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, "ConnectVN.Social_Network.Admin.Application.xml");
+                options.IncludeXmlComments(xmlPath);
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });

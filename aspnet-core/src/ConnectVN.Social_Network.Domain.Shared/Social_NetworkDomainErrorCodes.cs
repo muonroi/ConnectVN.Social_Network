@@ -8,6 +8,7 @@ public static class Social_NetworkDomainErrorCodes
     public const string NotExistsCategory = "ConnectVn.NotExistsCategory";
     public const string ErrorWhenRegister = "ConnectVn.ErrorWhenRegister";
     public const string ErrorWhenGetStory = "ConnectVn.ErrorWhenGetStory";
+    public const string ErrorWhenGetChapter = "ConnectVn.ErrorWhenGetChapter";
     public const string ErrorWhenCreateStory = "ConnectVn.ErrorWhenCreateStory";
     public const string ErrorWhenUpdateStory = "ConnectVn.ErrorWhenUpdateStory";
     public const string UnknowError = "ConnectVn.UnknowError";

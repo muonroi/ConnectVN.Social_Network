@@ -10,6 +10,16 @@ namespace ConnectVN.Social_Network.Chapters
     /// </summary>
     public class Chapter : CreationAuditedAggregateRoot<int>
     {
+        public Chapter()
+        { }
+        public Chapter(int id, string chapterTitle, string body, string numberOfChapter, int numberCharacter)
+        {
+            Id = id;
+            ChapterTitle = chapterTitle;
+            Body = body;
+            NumberOfChapter = numberOfChapter;
+            NumberCharacter = numberCharacter;
+        }
         /// <summary>
         /// Title
         /// </summary>
@@ -32,6 +42,7 @@ namespace ConnectVN.Social_Network.Chapters
         [MaxLength(200, ErrorMessage = nameof(EnumChapterErrorCode.CT08))]
 
         public string NumberOfChapter { get; set; }
+
         /// <summary>
         /// Sum character in chapter
         /// </summary>
@@ -41,6 +52,12 @@ namespace ConnectVN.Social_Network.Chapters
 
         [Required(ErrorMessage = nameof(EnumChapterErrorCode.CT09))]
         public Guid StoryGuid { get; set; }
+        /// <summary>
+        /// Slug of chapter
+        /// </summary>
+        [Required(ErrorMessage = nameof(EnumChapterErrorCode.CT10))]
+        public string Slug { get; set; }
+
         public Story Story { get; set; }
     }
 }

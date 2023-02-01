@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Refit;
 using System;
-using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Domain.Entities;
 
 namespace ConnectVN.Social_Network.Admin.DTO.Storys
 {
-    public class CreateUpdateStoryDTO : IEntityDto<Guid>, IHasConcurrencyStamp
+    public class CreateUpdateStoryDTO : IEntityDto<Guid>
     {
         public CreateUpdateStoryDTO()
         {
@@ -15,7 +12,7 @@ namespace ConnectVN.Social_Network.Admin.DTO.Storys
         }
         public CreateUpdateStoryDTO(Guid guidStory, int newTagId, int newCateGoryId, string story_Title,
                         string story_Synopsi,
-                        bool isShow, double rating = 0)
+                        bool isShow, string slug, double rating = 0)
         {
             Id = guidStory;
             Story_Title = story_Title;
@@ -24,7 +21,7 @@ namespace ConnectVN.Social_Network.Admin.DTO.Storys
             Rating = rating;
             NewTagId = newTagId;
             NewCategoryId = newCateGoryId;
-
+            Slug = slug;
         }
         public string Story_Title { get; set; }
         public string Story_Synopsis { get; set; }
@@ -36,6 +33,6 @@ namespace ConnectVN.Social_Network.Admin.DTO.Storys
         public int OldCategoryId { get; set; }
         public int NewTagId { get; set; }
         public int NewCategoryId { get; set; }
-        public string? ConcurrencyStamp { get; set; }
+        public string Slug { get; set; }
     }
 }

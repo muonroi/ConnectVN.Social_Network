@@ -63,7 +63,7 @@ namespace ConnectVN.Social_Network.Admin.AccountServices
             string appDomain = _configuration.GetSection("Application:AppDomain").Value;
             string confirmationLink = _configuration.GetSection("Application:EmailConfirmation").Value;
 
-            UserEmailOptions options = new UserEmailOptions
+            UserEmailOptions options = new()
             {
                 ToEmails = new List<string>() { user.Email },
                 PlaceHolders = new List<KeyValuePair<string, string>>()

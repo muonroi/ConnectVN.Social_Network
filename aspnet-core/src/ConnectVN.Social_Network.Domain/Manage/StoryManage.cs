@@ -34,40 +34,41 @@ namespace ConnectVN.Social_Network.Manage
         {
             if (await _storyRepository.AnyAsync(x => x.Story_Title.Equals(story_Title)))
             {
-                throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumStoryErrorCode.ST09.ToString()), Social_NetworkDomainErrorCodes.ExistsStoryTitle);
+                throw new UserFriendlyException(ManageMyFunction.GetMessage(EnumStoryErrorCode.ST09.ToString()), Social_NetworkDomainErrorCodes.ExistsStoryTitle);
             }
             Tag tag = await _tagRepository.GetAsync(x => x.Id == idTag);
             if (tag == null)
             {
-                throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumTagsErrorCode.TT08.ToString()), Social_NetworkDomainErrorCodes.NoExistsTag);
+                throw new UserFriendlyException(ManageMyFunction.GetMessage(EnumTagsErrorCode.TT08.ToString()), Social_NetworkDomainErrorCodes.NoExistsTag);
             }
             Category category = await _categoryRepository.GetAsync(x => x.Id == idCat);
 
             if (category == null)
             {
-                throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumCategoriesErrorCode.CTS02.ToString()), Social_NetworkDomainErrorCodes.NotExistsCategory);
+                throw new UserFriendlyException(ManageMyFunction.GetMessage(EnumCategoriesErrorCode.CTS02.ToString()), Social_NetworkDomainErrorCodes.NotExistsCategory);
             }
-            return new CreateUpdateStoryDTO(Guid.NewGuid(), tag.Id, category.Id, story_Title, story_Synopsi, isShow, Rating);
+            string slug = ManageMyFunction.ToSlug(story_Title);
+            return new CreateUpdateStoryDTO(Guid.NewGuid(), tag.Id, category.Id, story_Title, story_Synopsi, isShow, slug, Rating);
         }
         public async Task<CreateUpdateStoryDTO> UpdateAsync(Guid id, CreateUpdateStoryDTO input)
         {
             Story story = await _storyRepository.GetAsync(x => x.Id == id);
             if (story == null)
             {
-                throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumStoryErrorCode.ST09.ToString()), Social_NetworkDomainErrorCodes.NotExistsStory);
+                throw new UserFriendlyException(ManageMyFunction.GetMessage(EnumStoryErrorCode.ST09.ToString()), Social_NetworkDomainErrorCodes.NotExistsStory);
             }
             Tag tag = await _tagRepository.GetAsync(x => x.Id == input.NewTagId);
             if (tag == null)
             {
-                throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumTagsErrorCode.TT08.ToString()), Social_NetworkDomainErrorCodes.NoExistsTag);
+                throw new UserFriendlyException(ManageMyFunction.GetMessage(EnumTagsErrorCode.TT08.ToString()), Social_NetworkDomainErrorCodes.NoExistsTag);
             }
             Category category = await _categoryRepository.GetAsync(x => x.Id == input.NewCategoryId);
 
             if (category == null)
             {
-                throw new UserFriendlyException(GetErrorMessage.GetMessage(EnumCategoriesErrorCode.CTS02.ToString()), Social_NetworkDomainErrorCodes.NotExistsCategory);
+                throw new UserFriendlyException(ManageMyFunction.GetMessage(EnumCategoriesErrorCode.CTS02.ToString()), Social_NetworkDomainErrorCodes.NotExistsCategory);
             }
-            return new CreateUpdateStoryDTO(id, tag.Id, category.Id, input.Story_Title, input.Story_Synopsis, input.IsShow, input.Rating);
+            return new CreateUpdateStoryDTO(id, tag.Id, category.Id, input.Story_Title, input.Story_Synopsis, input.IsShow, input.Slug, input.Rating);
         }
     }
 }

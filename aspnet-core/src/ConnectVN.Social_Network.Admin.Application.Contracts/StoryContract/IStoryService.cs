@@ -23,6 +23,12 @@ namespace ConnectVN.Social_Network.Admin.StoryContract
         /// <returns>List story</returns>
         Task<PagedResultDto<DetailStoryDTO>> GetListFilterStoryAsync(BaseFilterDto baseFilter);
         /// <summary>
+        /// Get list story new update
+        /// </summary>
+        /// <param name="baseFilter">Keyword and page | pagesize</param>
+        /// <returns>List story</returns>
+        Task<PagedResultDto<DetailStoryDTO>> GetListNewStoryAsync(PagedResultRequestDto baseFilter);
+        /// <summary>
         /// Get list story condition showhome == true
         /// </summary>
         /// <returns>List story</returns>

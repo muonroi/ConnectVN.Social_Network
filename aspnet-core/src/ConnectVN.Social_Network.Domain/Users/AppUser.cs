@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Volo.Abp;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Identity;
 namespace ConnectVN.Social_Network.Users
 {

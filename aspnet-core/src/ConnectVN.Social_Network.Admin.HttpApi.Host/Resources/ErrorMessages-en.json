@@ -12,6 +12,7 @@
   "ST09": "Tên truyện đã tồn tại",
   "ST10": "Truyện không tồn tại",
   "ST11": "Có lỗi xảy ra khi thêm truyện. Vui lòng thử lại",
+  "CT11": "Chương không tồn tại",
   // --------------------\
 
   //Story notification
@@ -89,6 +90,7 @@
   "CT07": "Số chương không được để trống",
   "CT08": "Số chương vượt quá kí tự quy định 200",
   "CT09": "Số chữ trong truyện không được trống",
+  "CT10": "Đường dẫn chương truyện",
   //--------------------\
 
   "CTS00": "Tên danh mục không được trống",

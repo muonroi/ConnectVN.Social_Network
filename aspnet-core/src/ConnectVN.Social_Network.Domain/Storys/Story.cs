@@ -12,7 +12,7 @@ namespace ConnectVN.Social_Network.Storys
     /// <summary>
     /// Table Story
     /// </summary>
-    public class Story : FullAuditedAggregateRoot<Guid>, IHasConcurrencyStamp
+    public class Story : FullAuditedAggregateRoot<Guid>
     {
         public Story()
         { }
