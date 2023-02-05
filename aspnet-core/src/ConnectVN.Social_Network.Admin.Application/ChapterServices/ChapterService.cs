@@ -17,8 +17,6 @@ using System.Net.Mime;
 
 namespace ConnectVN.Social_Network.Admin.ChapterServices
 {
-    [Produces(MediaTypeNames.Application.Json,
-  MediaTypeNames.Application.Xml)]
     public class ChapterService : CrudAppService<Chapter, ChapterDTO, int, PagedResultRequestDto, CreateUpdateChapter, CreateUpdateChapter>, IChapterService
     {
         private readonly ChapterManage _chapterManage;
@@ -28,6 +26,11 @@ namespace ConnectVN.Social_Network.Admin.ChapterServices
             _storyRepository = storyRepository;
             _chapterManage = chapterManage;
         }
+        /// <summary>
+        /// Delete multiple chapter by list id of chapter
+        /// </summary>
+        /// <param name="ids">id of chapter delete</param>
+        /// <returns></returns>
         public async Task DeleteMultipleChapter(IEnumerable<int> ids)
        => await Repository.DeleteManyAsync(ids);
         /// <summary>
@@ -68,7 +71,7 @@ namespace ConnectVN.Social_Network.Admin.ChapterServices
         /// <summary>
         /// Get list chapter (paging)
         /// </summary>
-        /// <param name="input">inclue --> skip and max row <--</param>
+        /// <param name="input">inclue skip and max row </param>
         /// <returns></returns>
         /// <exception cref="BusinessException">Exeption when get error</exception>
         public async override Task<PagedResultDto<ChapterDTO>> GetListAsync(PagedResultRequestDto input)
@@ -123,5 +126,15 @@ namespace ConnectVN.Social_Network.Admin.ChapterServices
             chapterDTO.StoryTitle = resultStory.Story_Title;
             return chapterDTO;
         }
+        /// <summary>
+        /// Delete chapter by id
+        /// </summary>
+        /// <param name="id">id chapter</param>
+        /// <returns></returns>
+        public override Task DeleteAsync(int id)
+        {
+            return base.DeleteAsync(id);
+        }
+
     }
 }

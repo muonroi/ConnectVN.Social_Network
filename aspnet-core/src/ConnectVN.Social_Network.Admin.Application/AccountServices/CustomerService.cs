@@ -76,17 +76,14 @@ namespace ConnectVN.Social_Network.Admin.AccountServices
 
             await _emailService.SendEmailForEmailConfirmation(options);
         }
-        [AllowAnonymous]
         public override Task ResetPasswordAsync(ResetPasswordDto input)
         {
             return base.ResetPasswordAsync(input);
         }
-        [AllowAnonymous]
         public override Task SendPasswordResetCodeAsync(SendPasswordResetCodeDto input)
         {
             return base.SendPasswordResetCodeAsync(input);
         }
-        [AllowAnonymous]
         public async Task<IdentityResult> ConfirmEmailAsync(string uid, string token)
         {
             return await _userManagers.ConfirmEmailAsync(await _userManagers.FindByIdAsync(uid), token);

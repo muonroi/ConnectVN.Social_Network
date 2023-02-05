@@ -9,7 +9,7 @@ namespace ConnectVN.Social_Network.Manage
 {
     public class UserManage : DomainService
     {
-        public IRepository<AppUser> _usermemberRepository;
+        public readonly IRepository<AppUser> _usermemberRepository;
         public UserManage(IRepository<AppUser> usermemberRepository)
         {
             _usermemberRepository = usermemberRepository;

@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.WebSockets;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -25,11 +24,9 @@ using Volo.Abp.BlobStoring;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 using Volo.Abp.Security.Encryption;
-using AuthorizeAttribute = Microsoft.AspNetCore.Authorization.AuthorizeAttribute;
 
 namespace ConnectVN.Social_Network.Admin.StoryServices
 {
-
     public class StoryService : CrudAppService<Story, DetailStoryDTO, Guid, PagedResultRequestDto, CreateUpdateStoryDTO, CreateUpdateStoryDTO>, IStoryService
     {
         private readonly IStoryServiceAPI _storyServiceAPI;
@@ -39,9 +36,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
         private readonly IRepository<Tag> _tagRepository;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<IdentityUser> _userMemberRepository;
-        public IStringEncryptionService _encryptionService { get; set; }
-
-        protected IStringEncryptionService StringEncryptionService { get; }
+        protected readonly IStringEncryptionService _stringEncryptionService;
         public static readonly List<string> ImageExtensions = new() { "JPG", "JPE", "BMP", "GIF", "PNG", "JPEG" };
         public StoryService(
             IRepository<Story, Guid> repository,
@@ -49,23 +44,32 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             IRepository<Tag> tagRepository,
             IRepository<Category> categoryRepository,
             IRepository<IdentityUser> userMemberRepository, IStringEncryptionService stringEncryptionService
-            , StoryManage storyManage, IBlobContainer<StoryFileUpload> storyFileUpload, IStoryServiceAPI storyServiceAPI, IStringEncryptionService encryptionService) : base(repository)
+            , StoryManage storyManage, IBlobContainer<StoryFileUpload> storyFileUpload, IStoryServiceAPI storyServiceAPI) : base(repository)
         {
             _storyManage = storyManage;
             _tagInstoryRepository = tagInstoryRepository;
             _categoryRepository = categoryRepository;
             _tagRepository = tagRepository;
             _userMemberRepository = userMemberRepository;
-            StringEncryptionService = stringEncryptionService;
+            _stringEncryptionService = stringEncryptionService;
             _storyFileUpload = storyFileUpload;
             _storyServiceAPI = storyServiceAPI;
-            _encryptionService = encryptionService;
         }
+        /// <summary>
+        /// Delete multiple story by list guid of story
+        /// </summary>
+        /// <param name="guidId">Guid of story delete</param>
+        /// <returns></returns>
 
         public async Task DeleteMultipleStoryAsync(IEnumerable<Guid> guidId)
             // Delete multi story
             => await Repository.DeleteManyAsync(guidId);
-        [Authorize]
+        /// <summary>
+        /// Get story by guid
+        /// </summary>
+        /// <param name="id">Guid story</param>
+        /// <returns></returns>
+        /// <exception cref="BusinessException"></exception>
         public async override Task<DetailStoryDTO> GetAsync(Guid id)
         {
             Story queryStory = await Repository.GetAsync(id);
@@ -118,6 +122,12 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             await Repository.UpdateAsync(queryStory);
             return story;
         }
+        /// <summary>
+        /// Get all story 
+        /// </summary>
+        /// <param name="requestPage">from what record and how many records to get.</param>
+        /// <returns></returns>
+        /// <exception cref="BusinessException"></exception>
         public async Task<PagedResultDto<DetailStoryDTO>> GetListAllStoryAsync(PagedResultRequestDto requestPage)
         {
             PagedResultDto<DetailStoryDTO> pagedResultDto = null;
@@ -181,6 +191,12 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             data = data.Skip(requestPage.SkipCount).Take(requestPage.MaxResultCount).ToList();
             return pagedResultDto = new(countData, data);
         }
+        /// <summary>
+        /// Search story like keyword
+        /// </summary>
+        /// <param name="baseFilter"></param>
+        /// <returns></returns>
+        /// <exception cref="BusinessException"></exception>
         public async Task<PagedResultDto<DetailStoryDTO>> GetListFilterStoryAsync(BaseFilterDto baseFilter)
         {
             PagedResultDto<DetailStoryDTO> pagedResultDto = null;
@@ -260,6 +276,12 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             }
 
         }
+        /// <summary>
+        /// Create story by request
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="BusinessException"></exception>
         public async override Task<DetailStoryDTO> CreateAsync([FromForm] CreateUpdateStoryDTO input)
         {
             string url_img = "";
@@ -322,6 +344,13 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             };
             return storyResult;
         }
+        /// <summary>
+        /// Update story by guid of story and new info story 
+        /// </summary>
+        /// <param name="StoryGuid"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="BusinessException"></exception>
         public async override Task<DetailStoryDTO> UpdateAsync(Guid StoryGuid, [FromForm] CreateUpdateStoryDTO input)
         {
             DetailStoryDTO storyResult = null;
@@ -395,6 +424,12 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
 
             return storyResult;
         }
+        /// <summary>
+        /// Upload image of story (auto call from create story)
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        /// <exception cref="BusinessException"></exception>
         public async Task<string> UploadImg([FromForm] IFormFile files)
         {
             try
@@ -413,6 +448,12 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             }
 
         }
+        /// <summary>
+        /// Delete image of story by guid story
+        /// </summary>
+        /// <param name="guidStory"></param>
+        /// <returns></returns>
+        /// <exception cref="BusinessException"></exception>
         public async Task<bool> DeleteImg(Guid guidStory)
         {
             try
@@ -433,6 +474,12 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             }
 
         }
+        /// <summary>
+        /// Get img by guid story
+        /// </summary>
+        /// <param name="guidStory"></param>
+        /// <returns></returns>
+        /// <exception cref="BusinessException"></exception>
         public async Task<FileResult> GetImg(Guid guidStory)
         {
             try
@@ -454,6 +501,12 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             }
 
         }
+        /// <summary>
+        /// Get new story follow create date
+        /// </summary>
+        /// <param name="baseFilter"></param>
+        /// <returns></returns>
+        /// <exception cref="BusinessException"></exception>
         public async Task<PagedResultDto<DetailStoryDTO>> GetListNewStoryAsync(PagedResultRequestDto baseFilter)
         {
             PagedResultDto<DetailStoryDTO> pagedResultDto = null;
@@ -516,6 +569,24 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             }
             data = data.SkipLast(baseFilter.SkipCount).TakeLast(baseFilter.MaxResultCount).ToList();
             return pagedResultDto = new(countData, data);
+        }
+        /// <summary>
+        /// Get list story
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override Task<PagedResultDto<DetailStoryDTO>> GetListAsync(PagedResultRequestDto input)
+        {
+            return base.GetListAsync(input);
+        }
+        /// <summary>
+        /// Delete story by guid
+        /// </summary>
+        /// <param name="id">Guid story</param>
+        /// <returns></returns>
+        public override Task DeleteAsync(Guid id)
+        {
+            return base.DeleteAsync(id);
         }
     }
 }
