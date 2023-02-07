@@ -8,7 +8,7 @@ on:
     paths:
       - '**/aspnet-core'
     branches: 
-      - "develop/**" 
+      - 'develop/**' 
 
 jobs:
   build:
