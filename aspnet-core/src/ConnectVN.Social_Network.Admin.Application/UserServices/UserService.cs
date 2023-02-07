@@ -68,7 +68,7 @@ namespace ConnectVN.Social_Network.Admin.UserService
                 {
                     throw new BusinessException(EnumUserErrorCodes.USR29C.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenRegister);
                 }
-                string url_img = ""; //saasa
+                string url_img = ""; //saasaa
                 if (CheckTypeFileIsImage(input.AvatarFile) && input.AvatarFile.Length > 0)
                 {
                     Stream streamImg = input.AvatarFile.OpenReadStream();

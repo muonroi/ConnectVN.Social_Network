@@ -20,11 +20,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: CD ASP
-      run: cd aspnet-core
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore **/*.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build **/*.sln --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
