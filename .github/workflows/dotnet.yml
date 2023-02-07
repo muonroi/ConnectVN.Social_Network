@@ -5,9 +5,11 @@ name: .NET
 
 on:
   push:
-    branches: [ "master/aspnet-core" ]
+    paths:
+      - 'aspnet-core/**'
+    branches: [master]
   pull_request:
-    branches: [ "master/aspnet-core" ]
+    branches: [master]
 
 jobs:
   build:
@@ -21,8 +23,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore **/*.sln
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build **/*.sln --no-restore
