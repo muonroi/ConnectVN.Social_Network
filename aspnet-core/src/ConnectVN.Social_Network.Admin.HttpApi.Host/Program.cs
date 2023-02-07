@@ -1,17 +1,14 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
-using Autofac.Core;
 using ConnectVN.Social_Network.Admin.DTO;
 using ConnectVN.Social_Network.Admin.Email;
+using ConnectVN.Social_Network.Admin.Hub;
 using ConnectVN.Social_Network.Admin.Infrastructure.Services;
 using ConnectVN.Social_Network.Admin.MailServices;
 using ConnectVN.Social_Network.Admin.Setting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using Refit;
 using Serilog;
 using Serilog.Events;
@@ -48,14 +45,24 @@ public class Program
                 s.BaseAddress = new Uri(Environment.GetEnvironmentVariable(MainSetting.ENV_USER_SERVICE_API_URL));
             });
             builder.Services.AddScoped<IEmailService, MailService>();
-
             builder.Services.Configure<SMTPConfigModel>(builder.Configuration.GetSection("SMTPConfig"));
+            builder.Services.AddSignalR();
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
             await builder.AddApplicationAsync<Social_NetworkAdminHttpApiHostModule>();
             var app = builder.Build();
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:8080")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+            );
             app.UseRouting();
+            app.UseEndpoints(options =>
+            {
+                options.MapHub<NotificationHub>("/NotificationStory");
+            });
             await app.InitializeApplicationAsync();
             await app.RunAsync();
             return 0;

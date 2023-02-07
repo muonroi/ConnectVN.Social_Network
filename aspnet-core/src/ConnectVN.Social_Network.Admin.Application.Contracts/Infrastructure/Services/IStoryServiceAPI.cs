@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ConnectVN.Social_Network.Admin.DTO;
+using ConnectVN.Social_Network.Admin.DTO.Storys;
 using Refit;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConnectVN.Social_Network.Admin.Infrastructure.Services
@@ -14,5 +14,8 @@ namespace ConnectVN.Social_Network.Admin.Infrastructure.Services
 
         [Delete("/app/story/img")]
         Task<IApiResponse<bool>> DeleteFileImg([AliasAs("guidStory")] Guid guidStory);
+
+        [Post("/app/story/model-notifi-cation")]
+        Task SendNotification([Body] StoryNotifiCationDTO storyNotifiCationDTO);
     }
 }

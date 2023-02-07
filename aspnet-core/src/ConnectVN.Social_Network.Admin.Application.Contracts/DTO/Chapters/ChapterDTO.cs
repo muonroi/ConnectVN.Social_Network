@@ -10,7 +10,6 @@ namespace ConnectVN.Social_Network.Admin.DTO.Chapters
         public string NumberOfChapter { get; set; }
         public int NumberCharacter { get; set; }
         public string Slug { get; set; }
-
         public int Id { get; set; }
     }
 }

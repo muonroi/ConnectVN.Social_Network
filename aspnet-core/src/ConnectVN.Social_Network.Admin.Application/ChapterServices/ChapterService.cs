@@ -13,7 +13,9 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using ConnectVN.Social_Network.Admin.Infrastructure.Extentions;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Mime;
+using ConnectVN.Social_Network.Admin.Infrastructure.Services;
+using ConnectVN.Social_Network.Admin.DTO.Storys;
+using System;
 
 namespace ConnectVN.Social_Network.Admin.ChapterServices
 {
@@ -21,10 +23,12 @@ namespace ConnectVN.Social_Network.Admin.ChapterServices
     {
         private readonly ChapterManage _chapterManage;
         private readonly IRepository<Story> _storyRepository;
-        public ChapterService(IRepository<Chapter, int> repository, IRepository<Story> storyRepository, ChapterManage chapterManage) : base(repository)
+        private readonly IStoryServiceAPI _storyServiceAPI;
+        public ChapterService(IRepository<Chapter, int> repository, IRepository<Story> storyRepository, ChapterManage chapterManage, IStoryServiceAPI storyServiceAPI) : base(repository)
         {
             _storyRepository = storyRepository;
             _chapterManage = chapterManage;
+            _storyServiceAPI = storyServiceAPI;
         }
         /// <summary>
         /// Delete multiple chapter by list id of chapter
@@ -44,6 +48,16 @@ namespace ConnectVN.Social_Network.Admin.ChapterServices
             Story story = await _storyRepository.GetAsync(x => x.Id.Equals(input.StoryGuid));
             Chapter chapter = ObjectMapper.Map<CreateUpdateChapter, Chapter>(result);
             Chapter newChapter = await Repository.InsertAsync(chapter);
+            StoryNotifiCationDTO storyNotifiCationDTO = new()
+            {
+                UserGuid = (Guid)story.CreatorId,
+                StoryGuid = (Guid)story.CreatorId,
+                NotificationSate = EnumStateNotification.SENT,
+                Title = "Có chương mới",
+                Message = $"Truyện ${story.Story_Title} vừa ra chương ${chapter.NumberOfChapter}",
+                NotifiCationUrl = @$"https://localhost:5004/{newChapter.Id}",
+            };
+            await _storyServiceAPI.SendNotification(storyNotifiCationDTO);
             ChapterDTO chapterDTO = ObjectMapper.Map<Chapter, ChapterDTO>(newChapter);
             chapterDTO.StoryTitle = story.Story_Title;
             return chapterDTO;

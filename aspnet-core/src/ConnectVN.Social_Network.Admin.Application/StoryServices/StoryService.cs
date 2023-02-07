@@ -1,4 +1,5 @@
 ﻿using ConnectVN.Social_Network.Admin.DTO.Storys;
+using ConnectVN.Social_Network.Admin.Hub;
 using ConnectVN.Social_Network.Admin.Infrastructure.Extentions;
 using ConnectVN.Social_Network.Admin.Infrastructure.Services;
 using ConnectVN.Social_Network.Admin.Setting;
@@ -11,6 +12,7 @@ using ConnectVN.Social_Network.Tags;
 using ConnectVN.Social_Network.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Refit;
 using System;
 using System.Collections.Generic;
@@ -29,6 +31,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
 {
     public class StoryService : CrudAppService<Story, DetailStoryDTO, Guid, PagedResultRequestDto, CreateUpdateStoryDTO, CreateUpdateStoryDTO>, IStoryService
     {
+        private readonly IHubContext<NotificationHub> _notificationHubContext;
         private readonly IStoryServiceAPI _storyServiceAPI;
         private readonly IBlobContainer<StoryFileUpload> _storyFileUpload;
         private readonly StoryManage _storyManage;
@@ -43,7 +46,9 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             IRepository<TagInStory> tagInstoryRepository,
             IRepository<Tag> tagRepository,
             IRepository<Category> categoryRepository,
-            IRepository<IdentityUser> userMemberRepository, IStringEncryptionService stringEncryptionService
+            IRepository<IdentityUser> userMemberRepository,
+            IStringEncryptionService stringEncryptionService,
+            IHubContext<NotificationHub> notificationHubContext
             , StoryManage storyManage, IBlobContainer<StoryFileUpload> storyFileUpload, IStoryServiceAPI storyServiceAPI) : base(repository)
         {
             _storyManage = storyManage;
@@ -54,6 +59,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             _stringEncryptionService = stringEncryptionService;
             _storyFileUpload = storyFileUpload;
             _storyServiceAPI = storyServiceAPI;
+            _notificationHubContext = notificationHubContext;
         }
         /// <summary>
         /// Delete multiple story by list guid of story
@@ -587,6 +593,15 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
         public override Task DeleteAsync(Guid id)
         {
             return base.DeleteAsync(id);
+        }
+        /// <summary>
+        /// Notification when publish story
+        /// </summary>
+        /// <param name="storyNotifiCationDTO"></param>
+        /// <returns></returns>
+        public async Task CreateModelNotifiCation(StoryNotifiCationDTO storyNotifiCationDTO)
+        {
+            await _notificationHubContext.Clients.All.SendAsync("sendToUser", storyNotifiCationDTO);
         }
     }
 }

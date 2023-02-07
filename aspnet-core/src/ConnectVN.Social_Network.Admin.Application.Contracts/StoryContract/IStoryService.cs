@@ -59,5 +59,11 @@ namespace ConnectVN.Social_Network.Admin.StoryContract
         /// <param name="guidStory"></param>
         /// <returns></returns>
         Task<bool> DeleteImg(Guid guidStory);
+        /// <summary>
+        /// Notification when publish story
+        /// </summary>
+        /// <param name="storyNotifiCationDTO"></param>
+        /// <returns></returns>
+        Task CreateModelNotifiCation(StoryNotifiCationDTO storyNotifiCationDTO);
     }
 }

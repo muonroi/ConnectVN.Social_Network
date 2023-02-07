@@ -9,10 +9,9 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using System.Linq;
-using Volo.Abp.ObjectMapping;
-using ConnectVN.Social_Network.Storys;
 using Volo.Abp.Identity;
-
+using System.Data.Entity;
+//using Microsoft.EntityFrameworkCore;
 namespace ConnectVN.Social_Network.Admin.Bookmarks
 {
     public class BookmarkServices
@@ -23,7 +22,7 @@ namespace ConnectVN.Social_Network.Admin.Bookmarks
         public BookmarkServices(IRepository<BookMarkStory, int> repository, BookmarkManage bookmarkManage, IRepository<IdentityUser> appUserRepository) : base(repository)
         {
             _bookmarkManage = bookmarkManage;
-
+            _appUserRepository = appUserRepository;
         }
         /// <summary>
         /// Delete multiple bookmark by list id of bookmark by user
@@ -38,7 +37,6 @@ namespace ConnectVN.Social_Network.Admin.Bookmarks
             await Repository.DeleteManyAsync(id);
 
         }
-        // Delete multi story
         /// <summary>
         /// Create new bookmark
         /// </summary>
@@ -108,6 +106,16 @@ namespace ConnectVN.Social_Network.Admin.Bookmarks
             bookmarkDTOs = bookmarkDTOs.Skip(pagedResultRequestDto.SkipCount).Take(pagedResultRequestDto.MaxResultCount).ToList();
             int countBookmark = bookmarkDTOs.Count;
             return pagedResultDto = new(countBookmark, bookmarkDTOs);
+        }
+        /// <summary>
+        /// Update bookmark (no need to use)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override Task<BookmarkDTO> UpdateAsync(int id, BookmarkDTO input)
+        {
+            return base.UpdateAsync(id, input);
         }
     }
 }

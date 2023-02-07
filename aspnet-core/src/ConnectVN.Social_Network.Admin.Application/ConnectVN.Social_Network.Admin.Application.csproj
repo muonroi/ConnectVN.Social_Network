@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="Abp.MailKit" Version="8.0.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="MailKit" Version="3.4.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
