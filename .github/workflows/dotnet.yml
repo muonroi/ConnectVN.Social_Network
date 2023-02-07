@@ -5,9 +5,7 @@ name: .NET
 
 on:
   push:
-    branches: [ "master/aspnet-core" ]
-  pull_request:
-    branches: [ "master/aspnet-core" ]
+    branches: [ "develop/aspnet-core" ]
 
 jobs:
   build:
