@@ -5,7 +5,10 @@ name: .NET
 
 on:
   push:
-    branches: [ "develop/aspnet-core" ]
+    paths:
+      - '**/aspnet-core'
+    branches: 
+      - "develop/**" 
 
 jobs:
   build:
