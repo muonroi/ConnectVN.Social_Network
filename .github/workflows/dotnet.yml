@@ -20,6 +20,8 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    - name: CD ASPCORE
+      run: cd aspnet-core
     - name: Restore dependencies
       run: dotnet restore ConnectVN.Social_Network.sln
     - name: Build
