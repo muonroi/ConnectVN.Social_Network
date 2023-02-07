@@ -5,6 +5,8 @@ name: Build and deploy ASP.Net Core app to Azure Web App - ConnectVn
 
 on:
   push:
+    paths:
+      - 'aspnet-core/**'
     branches:
       - master
   workflow_dispatch:
@@ -23,10 +25,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build **/*.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish **/*.sln -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
