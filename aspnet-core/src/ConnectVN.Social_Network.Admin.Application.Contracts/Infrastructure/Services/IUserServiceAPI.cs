@@ -1,9 +1,7 @@
 ﻿using ConnectVN.Social_Network.Admin.DTO;
 using Refit;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.Identity;
 
 namespace ConnectVN.Social_Network.Admin.Infrastructure.Services

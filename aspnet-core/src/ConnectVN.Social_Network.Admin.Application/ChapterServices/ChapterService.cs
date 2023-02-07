@@ -55,7 +55,7 @@ namespace ConnectVN.Social_Network.Admin.ChapterServices
                 NotificationSate = EnumStateNotification.SENT,
                 Title = "Có chương mới",
                 Message = $"Truyện ${story.Story_Title} vừa ra chương ${chapter.NumberOfChapter}",
-                NotifiCationUrl = @$"https://localhost:5004/{newChapter.Id}",
+                NotifiCationUrl = @$"https://connectvn.azurewebsites.net/{newChapter.Id}",
             };
             await _storyServiceAPI.SendNotification(storyNotifiCationDTO);
             ChapterDTO chapterDTO = ObjectMapper.Map<Chapter, ChapterDTO>(newChapter);
