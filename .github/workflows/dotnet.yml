@@ -6,8 +6,8 @@ name: .NET
 on:
   push:
     paths:
-      - 'aspnet-core/**'
-    branches: [develop] 
+      - '**/aspnet-core'
+    branches: [develop]
 
 jobs:
   build:
@@ -20,11 +20,11 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: CD ASPCORE
+    - name: cd asp
       run: cd aspnet-core
     - name: Restore dependencies
-      run: dotnet restore ConnectVN.Social_Network.sln
+      run: dotnet restore
     - name: Build
-      run: dotnet build ConnectVN.Social_Network.sln
+      run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
