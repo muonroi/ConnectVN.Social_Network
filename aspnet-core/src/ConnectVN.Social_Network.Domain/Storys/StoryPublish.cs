@@ -20,7 +20,7 @@ namespace ConnectVN.Social_Network.Storys
         /// Guid User
         /// </summary>
         public Guid UserGuid { get; set; }
-        public UserMember UserMember { get; set; }
+        public AppUser UserMember { get; set; }
 
     }
 }

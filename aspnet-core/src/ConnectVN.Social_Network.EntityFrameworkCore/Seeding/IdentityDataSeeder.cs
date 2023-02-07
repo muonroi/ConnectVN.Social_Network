@@ -4,9 +4,11 @@ using System;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Guids;
-using Volo.Abp.Identity;
+using IdentityUser = Volo.Abp.Identity.IdentityUser;
+using IdentityRole = Volo.Abp.Identity.IdentityRole;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Uow;
+using Volo.Abp.Identity;
 
 namespace ConnectVN.Social_Network.Seeding
 {

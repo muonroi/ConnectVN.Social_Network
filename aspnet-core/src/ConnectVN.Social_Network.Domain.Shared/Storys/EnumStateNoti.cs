@@ -4,10 +4,10 @@ namespace ConnectVN.Social_Network.Storys
     /// <summary>
     /// Enum Notifications
     /// </summary>
-    public enum EnumStateNoti
+    public enum EnumStateNotification
     {
-        seen,
-        sent,
-        received
+        SEEN,
+        SENT,
+        RECEIVED
     }
 }

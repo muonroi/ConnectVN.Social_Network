@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ConnectVN.Social_Network.Admin.HttpApi.Host</name>
+    </assembly>
+    <members>
+        <member name="M:ConnectVN.Social_Network.Controllers.HomeController.Register">
+            <summary>
+            comment ne
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -37,6 +37,14 @@
         /// <summary>
         /// Số chữ trong truyện không được trống
         /// </summary>
-        CT09
+        CT09,
+        /// <summary>
+        /// Đường dẫn chương truyện
+        /// </summary>
+        CT10,
+        /// <summary>
+        /// Chương không tồn tại
+        /// </summary>
+        CT11
     }
 }

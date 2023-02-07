@@ -95,6 +95,10 @@ namespace ConnectVN.Social_Network.Users
         /// Địa chỉ không quá 1000 kí tự
         /// </summary>
         USR18C,
+        /// <summary>
+        /// Địa chỉ không được trống
+        /// </summary>
+        USR32C,
 
         /// <summary>
         /// Email không đúng định dạng
@@ -105,7 +109,10 @@ namespace ConnectVN.Social_Network.Users
         /// Email không quá 1000 kí tự
         /// </summary>
         USR20C,
-
+        /// <summary>
+        /// Email bắt buộc phải nhập
+        /// </summary>
+        USR31C,
         /// <summary>
         /// Số điện thoại liên hệ phải lớn hơn hoặc bằng 10 kí tự
         /// </summary>
@@ -145,5 +152,25 @@ namespace ConnectVN.Social_Network.Users
         /// Tài khoản bị khóa
         /// </summary>
         USR28C,
+        /// <summary>
+        /// Có lỗi xảy ra vui lòng thử lại
+        /// </summary>
+        USR29C,
+        /// <summary>
+        /// Tối thiểu 3 kí tự
+        /// </summary>
+        USR30C,
+        /// <summary>
+        /// Địa chỉ tối thiểu 10 kí tự
+        /// </summary>
+        USRC33C,
+        /// <summary>
+        /// Ngày sinh không hợp lệ (tuổi phải lớn hơn 10, năm sinh > 1970)
+        /// </summary>
+        USRC34C,
+        /// <summary>
+        /// Giới tính lựa chọn không hợp lệ
+        /// </summary>
+        USRC35C,
     }
 }

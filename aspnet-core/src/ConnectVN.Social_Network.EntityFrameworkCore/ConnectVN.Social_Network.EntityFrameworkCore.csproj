@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\ErrorMessages-en.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ConnectVN.Social_Network.Domain\ConnectVN.Social_Network.Domain.csproj" />
     <PackageReference Include="Volo.Abp.EntityFrameworkCore.SqlServer" Version="6.0.2" />
     <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="6.0.2" />
@@ -24,11 +20,6 @@
     <PackageReference Include="Volo.Abp.OpenIddict.EntityFrameworkCore" Version="6.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ErrorMessages-en.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>compile; contentFiles; build; buildMultitargeting; buildTransitive; analyzers; native</PrivateAssets>
@@ -36,7 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Folder Include="Configurations\Roles\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

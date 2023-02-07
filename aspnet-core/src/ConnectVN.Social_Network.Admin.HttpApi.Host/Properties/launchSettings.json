@@ -11,9 +11,15 @@
     "ConnectVN.Social_Network.HttpApi.Host": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001",
+      "applicationUrl": "https://connectvn.azurewebsites.net",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ENV_USER_SERVICE_API_URL": "https://connectvn.azurewebsites.net/api",
+        "ENV_ENDPOINT": "localhost:9000",
+        "ENV_ACCESSKEY": "t5cNPCUGSpb63hin",
+        "ENV_SECRETKEY": "YCoKQgH0G3xhPOOlIHNAKyK9vwockwoO",
+        "ENV_BUCKETNAME": "connectvn-img",
+        "ENV_APP_GOOGLE_PASSWORD": "vkpmkddwjpqqdrra"
       }
     }
   }

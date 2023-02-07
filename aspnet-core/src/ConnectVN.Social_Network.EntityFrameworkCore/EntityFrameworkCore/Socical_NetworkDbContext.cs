@@ -65,18 +65,18 @@ public class Social_NetworkDbContext :
     //Social Network
     public DbSet<Story> Stories { get; set; }
     public DbSet<Category> Categories { get; set; }
-    public DbSet<CategoryInStory> CategoryInStories { get; set; }
     public DbSet<Chapter> Chapters { get; set; }
     public DbSet<Tag> Tags { get; set; }
     public DbSet<TagInStory> TagInStories { get; set; }
     public DbSet<BookMarkStory> BookMarkStories { get; set; }
     public DbSet<StoryPublish> StoryPublishes { get; set; }
     public DbSet<StoryNotifications> StoryNotifications { get; set; }
-    public DbSet<UserMember> UserMembers { get; set; }
     public DbSet<GroupUserMember> GroupUserMembers { get; set; }
     public DbSet<Role> UserRoles { get; set; }
     public DbSet<FollowingAuthor> FollowingAuthors { get; set; }
     public DbSet<StoryReview> StoryReviews { get; set; }
+    public DbSet<AppUser> AppUsers { get; set; }
+
     #endregion
 
     public Social_NetworkDbContext(DbContextOptions<Social_NetworkDbContext> options)
@@ -112,6 +112,5 @@ public class Social_NetworkDbContext :
         builder.ApplyConfiguration(new RoleConfiguration());
         builder.ApplyConfiguration(new ChapterConfiguration());
         builder.ApplyConfiguration(new CategoryConfiguration());
-        builder.ApplyConfiguration(new CategoriesInStoryConfiguration());
     }
 }

@@ -37,6 +37,15 @@ namespace ConnectVN.Social_Network.Tags
         /// <summary>
         /// Vui lòng chọn chương truyện
         /// </summary>
-        TT07
+        TT07,
+        /// <summary>
+        /// Thẻ không tồn tại
+        /// </summary>
+        TT08,
+
+        /// <summary>
+        /// Thêm thẻ thất bại.Vui lòng thử lại
+        /// </summary>
+        TT09,
     }
 }

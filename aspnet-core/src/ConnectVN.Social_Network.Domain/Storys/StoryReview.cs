@@ -28,6 +28,6 @@ namespace ConnectVN.Social_Network.Storys
         /// Content for story
         /// </summary>
         public string Content { get; set; }
-        public UserMember UserMember { get; set; }
+        public AppUser UserMember { get; set; }
     }
 }

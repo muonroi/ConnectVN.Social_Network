@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc;
 
-namespace ConnectVN.Social_Network.Controllers;
+namespace TeduEcommerce.Controllers;
 
 public class HomeController : AbpController
 {

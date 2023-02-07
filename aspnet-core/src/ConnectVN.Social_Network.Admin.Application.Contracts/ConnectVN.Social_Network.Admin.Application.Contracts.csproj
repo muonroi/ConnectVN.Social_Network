@@ -1,17 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>ConnectVN.Social_Network.Admin</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConnectVN.Social_Network.Domain.Shared\ConnectVN.Social_Network.Domain.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Refit" Version="6.3.2" />
+    <PackageReference Include="Slugify.Core" Version="3.0.0" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="6.0.2" />
+    <PackageReference Include="Volo.Abp.FluentValidation" Version="6.0.2" />
     <PackageReference Include="Volo.Abp.ObjectExtending" Version="6.0.2" />
     <PackageReference Include="Volo.Abp.Account.Application.Contracts" Version="6.0.2" />
     <PackageReference Include="Volo.Abp.Identity.Application.Contracts" Version="6.0.2" />
@@ -21,4 +23,11 @@
     <PackageReference Include="Volo.Abp.SettingManagement.Application.Contracts" Version="6.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\Accounts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConnectVN.Social_Network.Domain.Shared\ConnectVN.Social_Network.Domain.Shared.csproj" />
+  </ItemGroup>
 </Project>

@@ -35,14 +35,23 @@ namespace ConnectVN.Social_Network.Storys
         /// </summary>
         ST06,
         /// <summary>
-        /// Đường dẫn vượt quá kí tự quy định (1000)
-        /// </summary>
-        ST10,
-        /// <summary>
         /// Vui lòng chọn trạng thái truyện (Công khai | Riêng tư)
         /// </summary>
         ST08,
+        /// <summary>
+        /// Tên truyện đã tồn tại
+        /// </summary>
+        ST09,
 
+        /// <summary>
+        /// Truyện không tồn tại
+        /// </summary>
+        ST10,
+
+        /// <summary>
+        /// Có lỗi xảy ra khi thêm truyện. Vui lòng thử lại
+        /// </summary>
+        ST11,
     }
     public enum EnumNotificationStoryErrorCodes
     {
