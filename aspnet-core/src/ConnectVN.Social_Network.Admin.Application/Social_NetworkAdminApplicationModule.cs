@@ -1,10 +1,10 @@
 ﻿using ConnectVN.Social_Network.Common.Domain;
 using ConnectVN.Social_Network.Common.Settings;
-using System;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.BlobStoring;
-using Volo.Abp.BlobStoring.Minio;
+using Volo.Abp.BlobStoring.Azure;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -23,28 +23,27 @@ namespace ConnectVN.Social_Network.Admin;
     typeof(AbpTenantManagementApplicationModule),
     typeof(AbpFeatureManagementApplicationModule),
     typeof(AbpSettingManagementApplicationModule),
-    typeof(AbpBlobStoringMinioModule)
+    typeof(AbpBlobStoringAzureModule)
     )]
 public class Social_NetworkAdminApplicationModule : AbpModule
 {
+
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         Configure<AbpAutoMapperOptions>(options =>
         {
             options.AddMaps<Social_NetworkAdminApplicationModule>();
         });
-
+        var configuration = context.Services.GetConfiguration();
 
         Configure<AbpBlobStoringOptions>(options =>
         {
             options.Containers.ConfigureDefault(container =>
             {
-                container.UseMinio(minio =>
+                container.UseAzure(azure =>
                 {
-                    minio.EndPoint = Environment.GetEnvironmentVariable(Social_NetworkSettings.ENV_ENDPOINT);
-                    minio.AccessKey = Environment.GetEnvironmentVariable(Social_NetworkSettings.ENV_ACCESSKEY);
-                    minio.SecretKey = Environment.GetEnvironmentVariable(Social_NetworkSettings.ENV_SECRETKEY);
-                    minio.BucketName = Environment.GetEnvironmentVariable(Social_NetworkSettings.ENV_BUCKETNAME);
+                    azure.ConnectionString = configuration.GetSection($"Application:{Social_NetworkSettings.ENV_CONNECTIONSTRING}").Value;
+                    azure.ContainerName = configuration.GetSection($"Application:{Social_NetworkSettings.ENV_CONTAINERNAME}").Value;
                 });
             });
         });

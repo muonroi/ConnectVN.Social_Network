@@ -38,11 +38,11 @@ public class Program
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddRefitClient<IUserServiceAPI>().ConfigureHttpClient(s =>
             {
-                s.BaseAddress = new Uri(Environment.GetEnvironmentVariable(MainSetting.ENV_USER_SERVICE_API_URL));
+                s.BaseAddress = new Uri("https://connectvn.azurewebsites.net/api");
             });
             builder.Services.AddRefitClient<IStoryServiceAPI>().ConfigureHttpClient(s =>
             {
-                s.BaseAddress = new Uri(Environment.GetEnvironmentVariable(MainSetting.ENV_USER_SERVICE_API_URL));
+                s.BaseAddress = new Uri("https://connectvn.azurewebsites.net/api");
             });
             builder.Services.AddScoped<IEmailService, MailService>();
             builder.Services.Configure<SMTPConfigModel>(builder.Configuration.GetSection("SMTPConfig"));
