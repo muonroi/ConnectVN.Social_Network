@@ -13,7 +13,6 @@ using ConnectVN.Social_Network.Users;
 using ConnectVN.Social_Network.Admin.Email;
 using System;
 using ConnectVN.Social_Network.Domain;
-using ConnectVN.Social_Network.Tags;
 using Volo.Abp;
 
 namespace ConnectVN.Social_Network.Admin.AccountServices
