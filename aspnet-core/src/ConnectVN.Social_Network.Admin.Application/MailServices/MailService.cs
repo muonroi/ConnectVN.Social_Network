@@ -66,7 +66,7 @@ namespace ConnectVN.Social_Network.Admin.MailServices
         private static string GetEmailBody(string templateName)
         {
             string containerStr = "connectvnimages";//_configuration.GetSection($"Application:{Social_NetworkSettings.ENV_CONTAINERNAME}").Value;
-            string connecttionStr = @"DefaultEndpointsProtocol=https;AccountName=connectvnimages;AccountKey=twrISSTrmAYmEaK7RQ+ZNZ9ZWSnDvPdu3IDHAgBawk0hLiBo45n0AHim/DDgitX6nXvpIUHiIu3w+AStoT7/jA==;EndpointSuffix=core.windows.net";//_configuration.GetSection($"Application:{Social_NetworkSettings.ENV_CONNECTIONSTRING}").Value;
+            string connecttionStr = @"DefaultEndpointsProtocol=https;AccountName=connectvnimages;AccountKey=twrISSTrmAYmEaK7RQ+ZNZ9ZWSnDvPdu3IDHAgBawk0hLiBo45n0AHim/DDgitX6nXvpIUHiIu3w+AStoT7/jA==;EndpointSuffix=core.windows.net";//_configuration.GetSection($"Application:{Social_NetworkSettings.ENV_CONNECTIONSTRING}").Value; 
             BlobServiceClient blobServiceClient = new(connecttionStr);
             BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient(containerStr);
             BlobClient blobClient = blobContainerClient.GetBlobClient(string.Format(templatePath, templateName));
