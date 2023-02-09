@@ -1,5 +1,4 @@
-﻿using ConnectVN.Social_Network.Admin.DTO;
-using ConnectVN.Social_Network.Admin.DTO.Storys;
+﻿using ConnectVN.Social_Network.Admin.DTO.Storys;
 using Refit;
 using System;
 using System.Threading.Tasks;

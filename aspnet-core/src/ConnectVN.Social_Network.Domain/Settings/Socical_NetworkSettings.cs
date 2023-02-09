@@ -3,9 +3,7 @@
 public static class Social_NetworkSettings
 {
     public const string Prefix = "Social_Network";
-    public const string ENV_ENDPOINT = "ENV_ENDPOINT";
-    public const string ENV_ACCESSKEY = "ENV_ACCESSKEY";
-    public const string ENV_SECRETKEY = "ENV_SECRETKEY";
-    public const string ENV_BUCKETNAME = "ENV_BUCKETNAME";
+    public const string ENV_CONTAINERNAME = "ENV_CONTAINERNAME";
+    public const string ENV_CONNECTIONSTRING = "ENV_CONNECTIONSTRING";
 
 }

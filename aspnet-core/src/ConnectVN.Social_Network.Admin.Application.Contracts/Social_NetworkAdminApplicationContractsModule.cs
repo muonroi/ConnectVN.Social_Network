@@ -1,6 +1,5 @@
 ﻿using ConnectVN.Social_Network.Domain;
 using Volo.Abp.Account;
-using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.FluentValidation;
 using Volo.Abp.Identity;

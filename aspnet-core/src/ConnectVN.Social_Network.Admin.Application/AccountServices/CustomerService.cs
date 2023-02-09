@@ -11,13 +11,17 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using ConnectVN.Social_Network.Users;
 using ConnectVN.Social_Network.Admin.Email;
+using System;
+using ConnectVN.Social_Network.Domain;
+using ConnectVN.Social_Network.Tags;
+using Volo.Abp;
 
 namespace ConnectVN.Social_Network.Admin.AccountServices
 {
 
     public class CustomerService : AccountAppService
     {
-        private UserManager<IdentityUser> _userManagers;
+        private readonly UserManager<IdentityUser> _userManagers;
 
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
@@ -60,21 +64,30 @@ namespace ConnectVN.Social_Network.Admin.AccountServices
         }
         private async Task SendEmailConfirmationEmail(IdentityUser user, string token)
         {
-            string appDomain = _configuration.GetSection("Application:AppDomain").Value;
-            string confirmationLink = _configuration.GetSection("Application:EmailConfirmation").Value;
-
-            UserEmailOptions options = new()
+            try
             {
-                ToEmails = new List<string>() { user.Email },
-                PlaceHolders = new List<KeyValuePair<string, string>>()
+                string appDomain = _configuration.GetSection("Application:AppDomain").Value;
+                string confirmationLink = _configuration.GetSection("Application:EmailConfirmation").Value;
+
+                UserEmailOptions options = new()
+                {
+                    ToEmails = new List<string>() { user.Email },
+                    PlaceHolders = new List<KeyValuePair<string, string>>()
                 {
                     new KeyValuePair<string, string>("{{UserName}}", user.UserName),
                     new KeyValuePair<string, string>("{{Link}}",
                         string.Format(appDomain + confirmationLink, user.Id, token))
                 }
-            };
+                };
 
-            await _emailService.SendEmailForEmailConfirmation(options);
+                await _emailService.SendEmailForEmailConfirmation(options);
+            }
+            catch (Exception ex)
+            {
+
+                throw new BusinessException($"{ex.Message}", Social_NetworkDomainErrorCodes.ErrorWhenGetStory);
+            }
+
         }
         public override Task ResetPasswordAsync(ResetPasswordDto input)
         {

@@ -1,12 +1,4 @@
 {
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "https://localhost:44332",
-      "sslPort": 44332
-    }
-  },
   "profiles": {
     "ConnectVN.Social_Network.HttpApi.Host": {
       "commandName": "Project",
@@ -15,10 +7,6 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ENV_USER_SERVICE_API_URL": "https://connectvn.azurewebsites.net/api",
-        "ENV_ENDPOINT": "localhost:9000",
-        "ENV_ACCESSKEY": "t5cNPCUGSpb63hin",
-        "ENV_SECRETKEY": "YCoKQgH0G3xhPOOlIHNAKyK9vwockwoO",
-        "ENV_BUCKETNAME": "connectvn-img",
         "ENV_APP_GOOGLE_PASSWORD": "vkpmkddwjpqqdrra"
       }
     }

@@ -309,6 +309,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
                 throw new BusinessException(EnumTagsErrorCode.TT08.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenCreateStory);
             }
             Story result = await Repository.InsertAsync(story);
+
             if (result == null)
             {
                 throw new BusinessException(EnumStoryErrorCode.ST11.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenCreateStory);
@@ -328,7 +329,7 @@ namespace ConnectVN.Social_Network.Admin.StoryServices
             {
                 throw new BusinessException(EnumTagsErrorCode.TT08.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenCreateStory);
             }
-            IdentityUser author = await _userMemberRepository.GetAsync(x => x.Id.Equals(result.CreatorId));
+            IdentityUser author = await _userMemberRepository.GetAsync(x => x.Id.Equals(result.CreatorId ?? Guid.Parse("87fe60d4-18ec-f50a-904a-3a093ed81958")));
             if (author == null)
             {
                 throw new BusinessException(EnumUserErrorCodes.USR02C.ToString().GetMessage(), Social_NetworkDomainErrorCodes.ErrorWhenCreateStory);
